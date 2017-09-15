@@ -7,21 +7,59 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9CA8D70D1F68ED3B004ADB26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA8D70C1F68ED3B004ADB26 /* AppDelegate.swift */; };
-		9CA8D70F1F68ED3B004ADB26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA8D70E1F68ED3B004ADB26 /* ViewController.swift */; };
+		9C285F881F6A497B00DACC75 /* 0.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C285F811F6A497B00DACC75 /* 0.mp3 */; };
+		9C285F891F6A497B00DACC75 /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C285F821F6A497B00DACC75 /* 1.mp3 */; };
+		9C285F8A1F6A497B00DACC75 /* 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C285F831F6A497B00DACC75 /* 2.mp3 */; };
+		9C285F8B1F6A497B00DACC75 /* 3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C285F841F6A497B00DACC75 /* 3.mp3 */; };
+		9C285F8C1F6A497B00DACC75 /* 4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C285F851F6A497B00DACC75 /* 4.mp3 */; };
+		9C285F8D1F6A497B00DACC75 /* 5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C285F861F6A497B00DACC75 /* 5.mp3 */; };
+		9C285F8E1F6A497B00DACC75 /* 6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C285F871F6A497B00DACC75 /* 6.mp3 */; };
+		9C285F951F6A63C300DACC75 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C285F941F6A63C300DACC75 /* AVKit.framework */; };
+		9C285F971F6A63CB00DACC75 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C285F961F6A63CB00DACC75 /* AVFoundation.framework */; };
+		9C3C531F1F6A3BF60039C3F7 /* IBView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3C531E1F6A3BF60039C3F7 /* IBView.swift */; };
+		9CA37BDE1F6A6B1E00C522DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA37BDD1F6A6B1E00C522DF /* AppDelegate.swift */; };
+		9CA37BE31F6A6B8B00C522DF /* VideoComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA37BE21F6A6B8B00C522DF /* VideoComposer.swift */; };
+		9CA37BE51F6A7F8D00C522DF /* AVMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA37BE41F6A7F8D00C522DF /* AVMerger.swift */; };
+		9CA37BE71F6AA95700C522DF /* CompositeVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA37BE61F6AA95700C522DF /* CompositeVideoViewController.swift */; };
 		9CA8D7121F68ED3B004ADB26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CA8D7101F68ED3B004ADB26 /* Main.storyboard */; };
 		9CA8D7141F68ED3B004ADB26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CA8D7131F68ED3B004ADB26 /* Assets.xcassets */; };
 		9CA8D7171F68ED3B004ADB26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CA8D7151F68ED3B004ADB26 /* LaunchScreen.storyboard */; };
+		9CA8D7251F68F0E3004ADB26 /* PhotoSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA8D7241F68F0E3004ADB26 /* PhotoSelectionViewController.swift */; };
+		9CA8D7271F68F280004ADB26 /* PhotoReorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA8D7261F68F280004ADB26 /* PhotoReorderViewController.swift */; };
+		9CA8D72B1F68FB3D004ADB26 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA8D7291F68FB3D004ADB26 /* GalleryCollectionViewCell.swift */; };
+		9CA8D72C1F68FB3D004ADB26 /* GalleryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CA8D72A1F68FB3D004ADB26 /* GalleryCollectionViewCell.xib */; };
+		9CD0E9FC1F69031A0035309C /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD0E9FB1F69031A0035309C /* Photos.framework */; };
+		9CD0EA031F697D1C0035309C /* AudioCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CD0EA011F697D1C0035309C /* AudioCollectionViewCell.swift */; };
+		9CD0EA041F697D1C0035309C /* AudioCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CD0EA021F697D1C0035309C /* AudioCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C285F811F6A497B00DACC75 /* 0.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 0.mp3; sourceTree = "<group>"; };
+		9C285F821F6A497B00DACC75 /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
+		9C285F831F6A497B00DACC75 /* 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2.mp3; sourceTree = "<group>"; };
+		9C285F841F6A497B00DACC75 /* 3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 3.mp3; sourceTree = "<group>"; };
+		9C285F851F6A497B00DACC75 /* 4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 4.mp3; sourceTree = "<group>"; };
+		9C285F861F6A497B00DACC75 /* 5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 5.mp3; sourceTree = "<group>"; };
+		9C285F871F6A497B00DACC75 /* 6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 6.mp3; sourceTree = "<group>"; };
+		9C285F941F6A63C300DACC75 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		9C285F961F6A63CB00DACC75 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		9C3C531E1F6A3BF60039C3F7 /* IBView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBView.swift; sourceTree = "<group>"; };
+		9CA37BDD1F6A6B1E00C522DF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9CA37BE21F6A6B8B00C522DF /* VideoComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoComposer.swift; sourceTree = "<group>"; };
+		9CA37BE41F6A7F8D00C522DF /* AVMerger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVMerger.swift; sourceTree = "<group>"; };
+		9CA37BE61F6AA95700C522DF /* CompositeVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompositeVideoViewController.swift; sourceTree = "<group>"; };
 		9CA8D7091F68ED3B004ADB26 /* VideoMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9CA8D70C1F68ED3B004ADB26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9CA8D70E1F68ED3B004ADB26 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9CA8D7111F68ED3B004ADB26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9CA8D7131F68ED3B004ADB26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9CA8D7161F68ED3B004ADB26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9CA8D7181F68ED3B004ADB26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9CA8D7241F68F0E3004ADB26 /* PhotoSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSelectionViewController.swift; sourceTree = "<group>"; };
+		9CA8D7261F68F280004ADB26 /* PhotoReorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoReorderViewController.swift; sourceTree = "<group>"; };
+		9CA8D7291F68FB3D004ADB26 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		9CA8D72A1F68FB3D004ADB26 /* GalleryCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryCollectionViewCell.xib; sourceTree = "<group>"; };
+		9CD0E9FB1F69031A0035309C /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		9CD0EA011F697D1C0035309C /* AudioCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioCollectionViewCell.swift; sourceTree = "<group>"; };
+		9CD0EA021F697D1C0035309C /* AudioCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AudioCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +67,60 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C285F971F6A63CB00DACC75 /* AVFoundation.framework in Frameworks */,
+				9C285F951F6A63C300DACC75 /* AVKit.framework in Frameworks */,
+				9CD0E9FC1F69031A0035309C /* Photos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C285F801F6A497B00DACC75 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				9C285F811F6A497B00DACC75 /* 0.mp3 */,
+				9C285F821F6A497B00DACC75 /* 1.mp3 */,
+				9C285F831F6A497B00DACC75 /* 2.mp3 */,
+				9C285F841F6A497B00DACC75 /* 3.mp3 */,
+				9C285F851F6A497B00DACC75 /* 4.mp3 */,
+				9C285F861F6A497B00DACC75 /* 5.mp3 */,
+				9C285F871F6A497B00DACC75 /* 6.mp3 */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		9C285F8F1F6A5AF800DACC75 /* VideoVC */ = {
+			isa = PBXGroup;
+			children = (
+				9CA37BE61F6AA95700C522DF /* CompositeVideoViewController.swift */,
+			);
+			path = VideoVC;
+			sourceTree = "<group>";
+		};
+		9C3C531D1F6A3BDE0039C3F7 /* IBDesignables */ = {
+			isa = PBXGroup;
+			children = (
+				9C3C531E1F6A3BF60039C3F7 /* IBView.swift */,
+			);
+			path = IBDesignables;
+			sourceTree = "<group>";
+		};
+		9CA37BE11F6A6B7500C522DF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9CA37BE21F6A6B8B00C522DF /* VideoComposer.swift */,
+				9CA37BE41F6A7F8D00C522DF /* AVMerger.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		9CA8D7001F68ED3B004ADB26 = {
 			isa = PBXGroup;
 			children = (
 				9CA8D70B1F68ED3B004ADB26 /* VideoMaker */,
 				9CA8D70A1F68ED3B004ADB26 /* Products */,
+				9CD0E9FA1F69031A0035309C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +135,65 @@
 		9CA8D70B1F68ED3B004ADB26 /* VideoMaker */ = {
 			isa = PBXGroup;
 			children = (
-				9CA8D70C1F68ED3B004ADB26 /* AppDelegate.swift */,
-				9CA8D70E1F68ED3B004ADB26 /* ViewController.swift */,
+				9CA37BDD1F6A6B1E00C522DF /* AppDelegate.swift */,
+				9CA37BE11F6A6B7500C522DF /* Model */,
+				9C3C531D1F6A3BDE0039C3F7 /* IBDesignables */,
+				9CA8D7281F68FAF5004ADB26 /* Cells */,
+				9CA8D7221F68F0E3004ADB26 /* ViewControllers */,
 				9CA8D7101F68ED3B004ADB26 /* Main.storyboard */,
+				9CA8D7201F68F089004ADB26 /* Resources */,
 				9CA8D7131F68ED3B004ADB26 /* Assets.xcassets */,
 				9CA8D7151F68ED3B004ADB26 /* LaunchScreen.storyboard */,
 				9CA8D7181F68ED3B004ADB26 /* Info.plist */,
 			);
 			path = VideoMaker;
+			sourceTree = "<group>";
+		};
+		9CA8D7201F68F089004ADB26 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9C285F801F6A497B00DACC75 /* Music */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9CA8D7221F68F0E3004ADB26 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				9C285F8F1F6A5AF800DACC75 /* VideoVC */,
+				9CA8D7231F68F0E3004ADB26 /* PhotosVC */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		9CA8D7231F68F0E3004ADB26 /* PhotosVC */ = {
+			isa = PBXGroup;
+			children = (
+				9CA8D7241F68F0E3004ADB26 /* PhotoSelectionViewController.swift */,
+				9CA8D7261F68F280004ADB26 /* PhotoReorderViewController.swift */,
+			);
+			path = PhotosVC;
+			sourceTree = "<group>";
+		};
+		9CA8D7281F68FAF5004ADB26 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9CA8D7291F68FB3D004ADB26 /* GalleryCollectionViewCell.swift */,
+				9CD0EA011F697D1C0035309C /* AudioCollectionViewCell.swift */,
+				9CD0EA021F697D1C0035309C /* AudioCollectionViewCell.xib */,
+				9CA8D72A1F68FB3D004ADB26 /* GalleryCollectionViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		9CD0E9FA1F69031A0035309C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9C285F961F6A63CB00DACC75 /* AVFoundation.framework */,
+				9C285F941F6A63C300DACC75 /* AVKit.framework */,
+				9CD0E9FB1F69031A0035309C /* Photos.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,7 +228,8 @@
 				TargetAttributes = {
 					9CA8D7081F68ED3B004ADB26 = {
 						CreatedOnToolsVersion = 8.3.2;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 849UP4BSN8;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -123,9 +256,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C285F8D1F6A497B00DACC75 /* 5.mp3 in Resources */,
 				9CA8D7171F68ED3B004ADB26 /* LaunchScreen.storyboard in Resources */,
+				9CD0EA041F697D1C0035309C /* AudioCollectionViewCell.xib in Resources */,
+				9C285F891F6A497B00DACC75 /* 1.mp3 in Resources */,
+				9C285F8C1F6A497B00DACC75 /* 4.mp3 in Resources */,
+				9C285F8B1F6A497B00DACC75 /* 3.mp3 in Resources */,
 				9CA8D7141F68ED3B004ADB26 /* Assets.xcassets in Resources */,
+				9C285F881F6A497B00DACC75 /* 0.mp3 in Resources */,
+				9C285F8A1F6A497B00DACC75 /* 2.mp3 in Resources */,
+				9C285F8E1F6A497B00DACC75 /* 6.mp3 in Resources */,
 				9CA8D7121F68ED3B004ADB26 /* Main.storyboard in Resources */,
+				9CA8D72C1F68FB3D004ADB26 /* GalleryCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,8 +278,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CA8D70F1F68ED3B004ADB26 /* ViewController.swift in Sources */,
-				9CA8D70D1F68ED3B004ADB26 /* AppDelegate.swift in Sources */,
+				9CA37BDE1F6A6B1E00C522DF /* AppDelegate.swift in Sources */,
+				9CA8D7251F68F0E3004ADB26 /* PhotoSelectionViewController.swift in Sources */,
+				9CA37BE51F6A7F8D00C522DF /* AVMerger.swift in Sources */,
+				9CA37BE71F6AA95700C522DF /* CompositeVideoViewController.swift in Sources */,
+				9CA37BE31F6A6B8B00C522DF /* VideoComposer.swift in Sources */,
+				9C3C531F1F6A3BF60039C3F7 /* IBView.swift in Sources */,
+				9CA8D72B1F68FB3D004ADB26 /* GalleryCollectionViewCell.swift in Sources */,
+				9CA8D7271F68F280004ADB26 /* PhotoReorderViewController.swift in Sources */,
+				9CD0EA031F697D1C0035309C /* AudioCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -260,10 +409,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 849UP4BSN8;
 				INFOPLIST_FILE = VideoMaker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ymedialabs.test.VideoMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "47cc41c6-2b37-4545-bcc1-f0dc4901ebf6";
+				PROVISIONING_PROFILE_SPECIFIER = "IndiaDev*";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -272,10 +425,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 849UP4BSN8;
 				INFOPLIST_FILE = VideoMaker/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ymedialabs.test.VideoMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "47cc41c6-2b37-4545-bcc1-f0dc4901ebf6";
+				PROVISIONING_PROFILE_SPECIFIER = "IndiaDev*";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
@@ -299,6 +456,7 @@
 				9CA8D71D1F68ED3B004ADB26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
