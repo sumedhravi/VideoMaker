@@ -42,7 +42,8 @@ class PhotoSelectionViewController: UIViewController {
         super.viewDidLoad()
         
         initialize()
-        getImages()
+        
+    
 //        getImages()
 //        getImages()
 //        getImages()
@@ -63,7 +64,39 @@ class PhotoSelectionViewController: UIViewController {
         if hasReturned{
             galleryView.reloadData()
         }
+        
+    PHPhotoLibrary.requestAuthorization { (status) in
+        switch status{
+        case .authorized :
+            DispatchQueue.main.async {
+            self.getImages()
+            self.galleryView.reloadData()
+            print("User access authorized")
+            }
+        case .denied:
+            DispatchQueue.main.async {
+                print("User access denied")
+            let alert = UIAlertController(title: "Alert",message: "Permission to access Photos needs to be granted to select images",preferredStyle: .alert)
+            self.present(alert, animated: true, completion: nil)
+
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
+                (alertAction: UIAlertAction!) in
+                                    alert.dismiss(animated: true, completion: nil)
+                    UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
+            
+                 }))
+            }
+            
+        case .restricted:
+             print("User access is restricted")
+            
+        case .notDetermined:
+             print("User access is not determined")
+            
+        }
+        }
     }
+    
     
     func initialize(){
         galleryView.dataSource = self
