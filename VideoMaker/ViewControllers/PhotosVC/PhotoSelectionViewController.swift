@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class PhotoSelectionViewController: UIViewController {
+class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var galleryView: UICollectionView!
     
@@ -23,7 +23,8 @@ class PhotoSelectionViewController: UIViewController {
                 alert.dismiss(animated: true, completion:nil) }))
             return
         }
-        var selectedImages : [UIImage]=[]
+        
+        
         for path in indexPathsSelected!{
             selectedImages.append(userImages[path.item])
         }
@@ -34,15 +35,18 @@ class PhotoSelectionViewController: UIViewController {
 
     }
     
+    var selectedImages : [UIImage]=[]
     var hasReturned : Bool = false
     var userImages : [UIImage] = []
-    
+    var permissionGranted = false
     let cellName = "GalleryCollectionViewCell"
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initialize()
-        
+        if permissionGranted{
+            getImages()
+        }
     
 //        getImages()
 //        getImages()
@@ -69,10 +73,16 @@ class PhotoSelectionViewController: UIViewController {
         switch status{
         case .authorized :
             DispatchQueue.main.async {
-            self.getImages()
-            self.galleryView.reloadData()
-            print("User access authorized")
-            }
+                print("User access authorized")
+//                if self.hasReturned {
+//                    break
+//                }
+//                self.getImages()
+                if !self.permissionGranted && !self.hasReturned{
+                    self.permissionGranted = true
+                    self.getImages()
+                    self.galleryView.reloadData()
+                }}
         case .denied:
             DispatchQueue.main.async {
                 print("User access denied")
@@ -96,7 +106,8 @@ class PhotoSelectionViewController: UIViewController {
         }
         }
     }
-    
+
+
     
     func initialize(){
         galleryView.dataSource = self
@@ -109,6 +120,45 @@ class PhotoSelectionViewController: UIViewController {
 
     }
     
+    
+    @IBAction func cameraButton(_ sender: Any) {
+    
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+    
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            imagePicker.cameraCaptureMode = .photo
+            imagePicker.modalPresentationStyle = .fullScreen
+            present(imagePicker,animated: true,completion: nil)
+        } else {
+            noCamera()
+        }
+    
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        selectedImages.append(chosenImage)
+        dismiss(animated: true, completion: nil)
+    
+}
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+
+
+    func noCamera(){
+    print("No Camera")
+    }
+
+
+
+
+
+
     func getImages(){
         let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
@@ -144,7 +194,7 @@ extension PhotoSelectionViewController : UICollectionViewDataSource{
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellName, for: indexPath) as! GalleryCollectionViewCell
         cell.imageView.image = userImages[indexPath.item]
-        //cell.imageView.contentMode = .scaleAspectFit
+        cell.imageView.contentMode = .scaleAspectFill
         if cell.isSelected{
             
             
@@ -167,16 +217,14 @@ extension PhotoSelectionViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)as! GalleryCollectionViewCell
         cell.selectionImage.isHidden = false
-        //cell.isSelected = true
-        //collectionView.reloadData()
+
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
         let cell = collectionView.cellForItem(at: indexPath)as! GalleryCollectionViewCell
         cell.selectionImage.isHidden = true
-        //cell.isSelected = false
-        //collectionView.reloadData()
+        
     }
     
     func flowLayoutInitialization(){
@@ -186,6 +234,7 @@ extension PhotoSelectionViewController : UICollectionViewDelegateFlowLayout{
         layout?.minimumLineSpacing = 1
 
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
 
@@ -193,4 +242,13 @@ extension PhotoSelectionViewController : UICollectionViewDelegateFlowLayout{
     }
 
 }
+
+
+    
+  
+        
+        
+        
+        //        let imagePicker = UIImagePickerController()
+        //        imagePicker.delegate = self
 

@@ -206,7 +206,7 @@ extension PhotoReorderViewController:UICollectionViewDataSource{
            cell.audioName.text = audioList[indexPath.item]
             if !cell.isSelected{
                 cell.isPlaying = false
-                cell.cellView.backgroundColor = UIColor(colorLiteralRed: 230, green: 238, blue: 238, alpha: 1)
+                cell.cellView.backgroundColor = UIColor(colorLiteralRed: 230/255, green: 238/255, blue: 238/255, alpha: 1)
                 cell.cellView.alpha = 0.2
                 cell.durationLabel.isHidden = true
             }
@@ -304,7 +304,7 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
         {
             cell.isPlaying=false
             cell.durationLabel.isHidden = true
-            cell.cellView.backgroundColor = UIColor(colorLiteralRed: 230, green: 238, blue: 238, alpha: 1)
+            cell.cellView.backgroundColor = UIColor(colorLiteralRed: 230/255, green: 238/255, blue: 238/255, alpha: 1)
             cell.cellView.alpha = 0.2
 
 

@@ -72,6 +72,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Gallery" id="H3k-Ef-Pbz">
+                        <barButtonItem key="leftBarButtonItem" title="Camera" id="tmp-yQ-Aer">
+                            <connections>
+                                <action selector="cameraButton:" destination="BYZ-38-t0r" id="6Zc-zJ-tbJ"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" id="1ID-nM-SgX">
                             <connections>
                                 <action selector="doneButton:" destination="BYZ-38-t0r" id="phL-FY-EfW"/>
