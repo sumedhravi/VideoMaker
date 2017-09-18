@@ -67,6 +67,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         
         if hasReturnedFromVideo{
             galleryView.reloadData()
+            hasReturnedFromVideo = false
         }
         
     PHPhotoLibrary.requestAuthorization { (status) in
