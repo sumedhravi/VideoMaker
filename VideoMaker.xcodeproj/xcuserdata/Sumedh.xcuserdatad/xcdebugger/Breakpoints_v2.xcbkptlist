@@ -420,12 +420,12 @@
                   moduleName = "VideoMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-                  timestampString = "527414898.672922"
+                  timestampString = "527417245.387429"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "92"
                   endingLineNumber = "92"
-                  offsetFromSymbolStart = "784">
+                  offsetFromSymbolStart = "952">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -435,12 +435,12 @@
                   moduleName = "VideoMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-                  timestampString = "527414898.67416"
+                  timestampString = "527417245.390627"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "94"
                   endingLineNumber = "94"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "19">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -468,12 +468,12 @@
                   moduleName = "VideoMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-                  timestampString = "527414898.677429"
+                  timestampString = "527417245.396144"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "97"
                   endingLineNumber = "97"
-                  offsetFromSymbolStart = "904">
+                  offsetFromSymbolStart = "1096">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -483,12 +483,12 @@
                   moduleName = "VideoMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-                  timestampString = "527414898.678638"
+                  timestampString = "527417245.397878"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "97"
                   endingLineNumber = "97"
-                  offsetFromSymbolStart = "680">
+                  offsetFromSymbolStart = "784">
                </Location>
             </Locations>
          </BreakpointContent>

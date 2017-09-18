@@ -18,8 +18,8 @@ class VideoComposer : NSObject {
     
     struct RenderSettings {
         
-        var width: CGFloat = 1280
-        var height: CGFloat = 720
+        var width: CGFloat = 1920//1280
+        var height: CGFloat = 1280//720
         var fps = 0.5   // 2 frames per second
         var avCodecKey = AVVideoCodecH264
         var videoFilename = "SampleVideo"

@@ -15,7 +15,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
         let indexPathsSelected = self.galleryView.indexPathsForSelectedItems
-        guard (!selectedImages.isEmpty) else{
+        guard (!selectedImages.isEmpty || !(indexPathsSelected?.isEmpty)!) else{
             let alert = UIAlertController(title: "ALERT",message: "No Images Selected",preferredStyle: .alert)
             present(alert, animated: true, completion: nil)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
