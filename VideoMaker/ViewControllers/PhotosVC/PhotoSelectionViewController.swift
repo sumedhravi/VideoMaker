@@ -49,13 +49,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
             getImages()
         }
     
-//        getImages()
-//        getImages()
-//        getImages()
-//        getImages()
-//        getImages()
-//        getImages()
-//        getImages()
+
         
     
     }
@@ -66,7 +60,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        if hasReturnedFromReordering{
+        if hasReturnedFromReordering {
                 selectedImages.removeAll()
             selectedImages = []
         }
@@ -80,10 +74,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         case .authorized :
             DispatchQueue.main.async {
                 print("User access authorized")
-//                if self.hasReturned {
-//                    break
-//                }
-//                self.getImages()
+
                 if !self.permissionGranted && !self.hasReturnedFromReordering{
                     self.permissionGranted = true
                     self.getImages()
@@ -145,6 +136,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        hasReturnedFromReordering = false
         let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         selectedImages.append(chosenImage)
         dismiss(animated: true, completion: nil)
@@ -255,6 +247,4 @@ extension PhotoSelectionViewController : UICollectionViewDelegateFlowLayout{
         
         
         
-        //        let imagePicker = UIImagePickerController()
-        //        imagePicker.delegate = self
 
