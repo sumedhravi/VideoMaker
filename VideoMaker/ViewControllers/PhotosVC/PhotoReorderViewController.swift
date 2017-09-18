@@ -18,7 +18,7 @@ class PhotoReorderViewController: UIViewController {
     var selectedAudio = NSURL(fileURLWithPath: "")
     var myActivityIndicator: UIActivityIndicatorView!
     var isViewHidden = true
-    var watermark :Bool?
+    //var watermark :Bool?
     
     @IBOutlet weak var audioCollectionView: UICollectionView!
     @IBOutlet weak var selectedImagesCollectionView: UICollectionView!
@@ -45,7 +45,12 @@ class PhotoReorderViewController: UIViewController {
 
             })
         }
+        
+
+    
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,9 +81,12 @@ class PhotoReorderViewController: UIViewController {
     
     func configureNavigationItem(){
         navigationItem.title = "Selected Images"
-        let newBackButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector (proceed))
+        let newButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector (proceed))
         
-        self.navigationItem.rightBarButtonItem = newBackButton
+        self.navigationItem.rightBarButtonItem = newButton
+        let newBackButton = UIBarButtonItem(title: "Home", style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
+        self.navigationItem.leftBarButtonItem = newBackButton
+
         
     }
     
@@ -94,6 +102,14 @@ class PhotoReorderViewController: UIViewController {
         
         flowLayoutInitialization()
     }
+    
+    func goBack(){
+        let rootVC = self.navigationController?.viewControllers.first as! PhotoSelectionViewController
+        rootVC.hasReturnedFromReordering = true
+        self.navigationController?.popToRootViewController(animated: true)
+        
+    }
+
     
     func proceed() {
         if (audioCollectionView.indexPathsForSelectedItems?.isEmpty)!{

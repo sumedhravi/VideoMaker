@@ -79,7 +79,7 @@ class CompositeVideoViewController: AVPlayerViewController {
     
     func goBack(){
         let rootVC = self.navigationController?.viewControllers.first as! PhotoSelectionViewController
-        rootVC.hasReturned = true
+        rootVC.hasReturnedFromVideo = true
         self.navigationController?.popToRootViewController(animated: true)
         
     }

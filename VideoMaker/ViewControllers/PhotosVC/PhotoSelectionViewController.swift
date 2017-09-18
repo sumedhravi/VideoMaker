@@ -36,7 +36,8 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     }
     
     var selectedImages : [UIImage]=[]
-    var hasReturned : Bool = false
+    var hasReturnedFromVideo : Bool = false
+    var hasReturnedFromReordering : Bool = false
     var userImages : [UIImage] = []
     var permissionGranted = false
     let cellName = "GalleryCollectionViewCell"
@@ -64,8 +65,13 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        if hasReturned{
+    override func viewDidAppear(_ animated: Bool) {
+        if hasReturnedFromReordering{
+                selectedImages.removeAll()
+            selectedImages = []
+        }
+        
+        if hasReturnedFromVideo{
             galleryView.reloadData()
         }
         
@@ -78,7 +84,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
 //                    break
 //                }
 //                self.getImages()
-                if !self.permissionGranted && !self.hasReturned{
+                if !self.permissionGranted && !self.hasReturnedFromReordering{
                     self.permissionGranted = true
                     self.getImages()
                     self.galleryView.reloadData()

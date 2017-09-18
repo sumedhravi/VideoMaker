@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoReorderViewController.swift"
-            timestampString = "527158340.014206"
+            timestampString = "527419158.924814"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "PhotoReorderViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoReorderViewController.swift"
-            timestampString = "527158340.014206"
+            timestampString = "527419158.924814"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "createMerger()"
             landmarkType = "7">
          </BreakpointContent>
@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoReorderViewController.swift"
-            timestampString = "527158340.014206"
+            timestampString = "527419158.924814"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
             landmarkName = "createMerger()"
             landmarkType = "7">
             <Locations>
@@ -100,11 +100,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoReorderViewController.swift"
-            timestampString = "527163267.619809"
+            timestampString = "527419158.924814"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "proceed()"
             landmarkType = "7">
          </BreakpointContent>
@@ -148,11 +148,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoReorderViewController.swift"
-            timestampString = "527168299.522262"
+            timestampString = "527419158.924814"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
             landmarkName = "collectionView(_:didDeselectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -164,11 +164,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoReorderViewController.swift"
-            timestampString = "527167440.795017"
+            timestampString = "527419158.924814"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "collectionView(_:didSelectItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -180,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoReorderViewController.swift"
-            timestampString = "527168299.522262"
+            timestampString = "527419158.924814"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
             landmarkName = "collectionView(_:didDeselectItemAt:)"
             landmarkType = "7">
             <Locations>
@@ -292,12 +292,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-            timestampString = "527412703.206472"
+            timestampString = "527419738.006671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "viewWillAppear(_:)"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -340,11 +340,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-            timestampString = "527412703.206472"
+            timestampString = "527418792.710827"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -356,12 +356,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-            timestampString = "527412703.206472"
+            timestampString = "527419738.006671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "viewWillAppear(_:)"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -404,42 +404,42 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-            timestampString = "527412703.206472"
+            timestampString = "527419738.006671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
-            landmarkName = "viewWillAppear(_:)"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "VideoMaker.PhotoSelectionViewController.(viewWillAppear (Swift.Bool) -&gt; ()).(closure #1).(closure #2)"
+                  symbolName = "VideoMaker.PhotoSelectionViewController.(viewDidAppear (Swift.Bool) -&gt; ()).(closure #1).(closure #2)"
                   moduleName = "VideoMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-                  timestampString = "527417245.387429"
+                  timestampString = "527419771.443904"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
                   offsetFromSymbolStart = "952">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "VideoMaker.PhotoSelectionViewController.(viewWillAppear (Swift.Bool) -&gt; ()).(closure #1).(closure #2).(closure #1)"
+                  symbolName = "VideoMaker.PhotoSelectionViewController.(viewDidAppear (Swift.Bool) -&gt; ()).(closure #1).(closure #2).(closure #1)"
                   moduleName = "VideoMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-                  timestampString = "527417245.390627"
+                  timestampString = "527419771.446316"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
+                  startingLineNumber = "100"
+                  endingLineNumber = "100"
                   offsetFromSymbolStart = "19">
                </Location>
             </Locations>
@@ -452,42 +452,42 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-            timestampString = "527412703.206472"
+            timestampString = "527419738.006671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "viewWillAppear(_:)"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "viewDidAppear(_:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "VideoMaker.PhotoSelectionViewController.(viewWillAppear (Swift.Bool) -&gt; ()).(closure #1).(closure #2)"
+                  symbolName = "VideoMaker.PhotoSelectionViewController.(viewDidAppear (Swift.Bool) -&gt; ()).(closure #1).(closure #2)"
                   moduleName = "VideoMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-                  timestampString = "527417245.396144"
+                  timestampString = "527419771.460658"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "97"
-                  endingLineNumber = "97"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
                   offsetFromSymbolStart = "1096">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "VideoMaker.PhotoSelectionViewController.(viewWillAppear (Swift.Bool) -&gt; ()).(closure #1).(closure #2).(closure #1)"
+                  symbolName = "VideoMaker.PhotoSelectionViewController.(viewDidAppear (Swift.Bool) -&gt; ()).(closure #1).(closure #2).(closure #1)"
                   moduleName = "VideoMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-                  timestampString = "527417245.397878"
+                  timestampString = "527419771.462963"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "97"
-                  endingLineNumber = "97"
+                  startingLineNumber = "103"
+                  endingLineNumber = "103"
                   offsetFromSymbolStart = "784">
                </Location>
             </Locations>
@@ -532,6 +532,22 @@
                   offsetFromSymbolStart = "0">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
+            timestampString = "527419305.842901"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
