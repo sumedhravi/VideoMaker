@@ -275,7 +275,7 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
             let mp3URL = NSURL(fileURLWithPath: path)
             selectedAudio = mp3URL
             let cell = audioCollectionView.cellForItem(at: indexPath) as! AudioCollectionViewCell
-            //cell.audioImage.layer.cornerRadius = cell.audioImage.getDrawable
+            
             cell.cellView.backgroundColor = UIColor.black
             cell.cellView.alpha = 0.2
             

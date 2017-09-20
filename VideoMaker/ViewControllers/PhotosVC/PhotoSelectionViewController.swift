@@ -60,9 +60,9 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        if hasReturnedFromReordering {
+        if hasReturnedFromReordering || hasReturnedFromVideo {
                 selectedImages.removeAll()
-            selectedImages = []
+                selectedImages = []
         }
         
         if hasReturnedFromVideo{

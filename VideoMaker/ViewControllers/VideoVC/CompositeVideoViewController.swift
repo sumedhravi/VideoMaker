@@ -43,7 +43,7 @@ class CompositeVideoViewController: AVPlayerViewController {
             let alert = UIAlertController(title: "",message: "Do you want to save this video to gallery or discard it?",preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: {
             (alertAction: UIAlertAction!) in
-                self.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
                 self.saveToLibrary()
                 alert.dismiss(animated: true, completion:nil) }))
             alert.addAction(UIAlertAction(title: "Discard", style: UIAlertActionStyle.destructive, handler: {(alertAction: UIAlertAction!) in
@@ -61,6 +61,7 @@ class CompositeVideoViewController: AVPlayerViewController {
             
             PHPhotoLibrary.shared().performChanges({
                 PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self.finalVideoURL as URL)
+                
             }) { success, error in
                 if !success {
                     print("Could not save video to photo library:", error!)
