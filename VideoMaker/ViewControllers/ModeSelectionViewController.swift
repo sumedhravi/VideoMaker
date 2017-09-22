@@ -9,7 +9,16 @@
 import UIKit
 
 class ModeSelectionViewController: UIViewController {
+    
+    var cameraSelectedImages : [UIImage] = []
+        
+    
+    @IBOutlet weak var textLabel: UILabel!
 
+    
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,15 +30,69 @@ class ModeSelectionViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.navigationController?.isNavigationBarHidden = true
+        
+        
+//        self.view.layoutIfNeeded()
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
-    */
+    
 
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(true)
+////        self.textLabelLeadConstraint.constant = 0
+////        self.textLabelTrailConstraint.constant = 0
+////        
+////        self.buttonViewLeadConstraint.constant = 30
+////        self.buttonViewTrailingConstraint.constant = 30
+////        self.view.layoutIfNeeded()
+//
+//    }
+    
+    
+
+    @IBAction func cameraButton(_ sender: Any) {
+        
+        createCameraVC()
+        
+    }
+    
+    
+    @IBAction func galleryButton(_ sender: Any) {
+        createGalleryVC()
+    
+    }
+    
+    @IBAction func albumButton(_ sender: Any) {
+        
+    
+    }
+    
+    
+    func createGalleryVC(){
+        
+            let newController = self.storyboard?.instantiateViewController(withIdentifier: "photoSelectionVC") as! PhotoSelectionViewController
+            if !self.cameraSelectedImages.isEmpty{
+            newController.cameraImages = cameraSelectedImages
+                
+            }
+            self.navigationController?.pushViewController(newController, animated: true)
+        
+    }
+    
+    func createCameraVC(){
+        
+            let newController = self.storyboard?.instantiateViewController(withIdentifier: "CustomCameraViewController") as! CustomCameraViewController
+            let cameraNavVC = UINavigationController(rootViewController: newController)
+            present(cameraNavVC,animated: true)
+
+        
+    }
+    
 }
+    
+    
+

@@ -10,9 +10,13 @@ import UIKit
 
 class CameraCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var cellImage: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.cellImage.contentMode = .scaleAspectFill
+        
     }
 
+    @IBOutlet weak var deleteButton: UIButton!
 }

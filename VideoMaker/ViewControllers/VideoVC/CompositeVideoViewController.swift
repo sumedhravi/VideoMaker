@@ -14,11 +14,13 @@ import Photos
 class CompositeVideoViewController: AVPlayerViewController {
     var finalVideoURL = URL(fileURLWithPath: "")
     var playCount = 0
+    var cameraUsed = false
     override func viewDidLoad() {
         super.viewDidLoad()
 //        let videoPlayer = AVPlayer(url: finalVideoURL)
 //        let playerViewController = AVPlayerViewController()
 //        playerViewController.player = videoPlayer
+        let _ = CustomAlbum.sharedInstance
         self.player = AVPlayer(url: finalVideoURL)
         NotificationCenter.default.addObserver(self , selector: #selector(handleNotification), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
 //        self.present(playerViewController, animated: true)
@@ -37,6 +39,17 @@ class CompositeVideoViewController: AVPlayerViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        NotificationCenter.default.addObserver(self , selector: #selector(handleNotification), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(true)
+//        NotificationCenter.removeObserver(self)
+        
+    }
     func handleNotification() {
         if playCount == 0{
             playCount += 1
@@ -56,33 +69,37 @@ class CompositeVideoViewController: AVPlayerViewController {
     
     func saveToLibrary(){
         playCount = 1
-        PHPhotoLibrary.requestAuthorization { status in
-            guard status == .authorized else { return }
-            
-            PHPhotoLibrary.shared().performChanges({
-                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self.finalVideoURL as URL)
-                
-            }) { success, error in
-                if !success {
-                    print("Could not save video to photo library:", error!)
-                }
-                else{
-                        let alert = UIAlertController(title: "",message: "Saved",preferredStyle: .alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
-                            alert.dismiss(animated: true, completion: nil)}))
-                        self.present(alert, animated: true, completion: nil)
-
-                    }
-            }
-        }
-
+//        PHPhotoLibrary.requestAuthorization { status in
+//            guard status == .authorized else { return }
+//            
+//            PHPhotoLibrary.shared().performChanges({
+//                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self.finalVideoURL as URL)
+//                
+//            }) { success, error in
+//                if !success {
+//                    print("Could not save video to photo library:", error!)
+//                }
+//                else{
+//                        let alert = UIAlertController(title: "",message: "Saved",preferredStyle: .alert)
+//                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
+//                            alert.dismiss(animated: true, completion: nil)}))
+//                        self.present(alert, animated: true, completion: nil)
+//                        self.navigationItem.rightBarButtonItem?.isEnabled = false
+//
+//                    }
+//            }
+//        }
+        CustomAlbum.sharedInstance.save(url: self.finalVideoURL)
     }
     
     func goBack(){
-        let rootVC = self.navigationController?.viewControllers.first as! PhotoSelectionViewController
-        rootVC.hasReturnedFromVideo = true
-        self.navigationController?.popToRootViewController(animated: true)
         
+        if(cameraUsed){
+            self.navigationController?.dismiss(animated: true, completion: nil)
+        }
+        else{
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
     /*
     // MARK: - Navigation

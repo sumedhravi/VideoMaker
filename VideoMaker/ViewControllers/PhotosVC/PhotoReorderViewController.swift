@@ -18,6 +18,7 @@ class PhotoReorderViewController: UIViewController {
     var selectedAudio = NSURL(fileURLWithPath: "")
     var myActivityIndicator: UIActivityIndicatorView!
     var isViewHidden = true
+    var cameraUsed = false
     //var watermark :Bool?
     
     @IBOutlet weak var audioCollectionView: UICollectionView!
@@ -61,16 +62,21 @@ class PhotoReorderViewController: UIViewController {
         configureNavigationItem()
         configureCollectionView()
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        if !(audioCollectionView.indexPathsForSelectedItems?.isEmpty)!{
-            audioPlayer.stop()
-        }
-    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        let galleryVC = self.navigationController?.viewControllers[1] as! PhotoSelectionViewController
+        //        galleryVC.hasReturnedFromReordering = true
+        galleryVC.selectedImages.removeAll()
+        galleryVC.selectedImages = []
+        
+
+    }
     private func configureActivityIndicator() {
         
         myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
@@ -84,8 +90,8 @@ class PhotoReorderViewController: UIViewController {
         let newButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector (proceed))
         
         self.navigationItem.rightBarButtonItem = newButton
-        let newBackButton = UIBarButtonItem(title: "Home", style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
-        self.navigationItem.leftBarButtonItem = newBackButton
+//        let newBackButton = UIBarButtonItem(title: "Home", style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
+//        self.navigationItem.leftBarButtonItem = newBackButton
 
         
     }
@@ -103,13 +109,14 @@ class PhotoReorderViewController: UIViewController {
         flowLayoutInitialization()
     }
     
-    func goBack(){
-        let rootVC = self.navigationController?.viewControllers.first as! PhotoSelectionViewController
-        rootVC.hasReturnedFromReordering = true
-        self.navigationController?.popToRootViewController(animated: true)
-        
+    @IBAction func goBack(_ sender: Any) {
+      
+        let galleryVC = self.navigationController?.viewControllers[1] as! PhotoSelectionViewController
+        galleryVC.selectedImages.removeAll()
+        galleryVC.selectedImages = []
+        self.navigationController?.popToViewController(galleryVC, animated: true)
     }
-
+    
     
     func proceed() {
         if (audioCollectionView.indexPathsForSelectedItems?.isEmpty)!{
@@ -121,6 +128,7 @@ class PhotoReorderViewController: UIViewController {
         }
         else{
             audioPlayer.stop()
+            
             myActivityIndicator.startAnimating()
             let settings = VideoComposer.RenderSettings()
             let imageAnimator = VideoComposer.ImageAnimator(renderSettings:settings, imageArray: userImages)
@@ -151,6 +159,9 @@ class PhotoReorderViewController: UIViewController {
                                     self.myActivityIndicator.stopAnimating()
                                     let newController = self.storyboard?.instantiateViewController(withIdentifier: "playerVC") as! CompositeVideoViewController
                                     newController.finalVideoURL = mergedVideoUrl as! URL
+                                    if(self.cameraUsed){
+                                        newController.cameraUsed = true
+                                    }
                                     self.navigationController?.pushViewController(newController, animated: true)
 
                                 }
@@ -316,13 +327,14 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         //audioPlayer.pause()
+        if collectionView == audioCollectionView{
         if let cell = audioCollectionView.cellForItem(at: indexPath) as! AudioCollectionViewCell?
         {
             cell.isPlaying=false
             cell.durationLabel.isHidden = true
             cell.cellView.backgroundColor = UIColor(colorLiteralRed: 230/255, green: 238/255, blue: 238/255, alpha: 1)
             cell.cellView.alpha = 0.2
-
+        }
 
         }
     }

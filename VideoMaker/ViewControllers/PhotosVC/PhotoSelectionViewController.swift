@@ -10,12 +10,12 @@ import UIKit
 import Photos
 
 class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     @IBOutlet weak var galleryView: UICollectionView!
     
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
         let indexPathsSelected = self.galleryView.indexPathsForSelectedItems
-        guard (!selectedImages.isEmpty || !(indexPathsSelected?.isEmpty)!) else{
+        guard (!cameraImages.isEmpty || !(indexPathsSelected?.isEmpty)!) else{
             let alert = UIAlertController(title: "ALERT",message: "No Images Selected",preferredStyle: .alert)
             present(alert, animated: true, completion: nil)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
@@ -28,22 +28,32 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         for path in indexPathsSelected!{
             selectedImages.append(userImages[path.item])
         }
-
+        totalSelectedImages = selectedImages + cameraImages
         let newController = self.storyboard?.instantiateViewController(withIdentifier: "photoReorderVC") as! PhotoReorderViewController
-        newController.userImages = selectedImages
+        newController.userImages = totalSelectedImages
+        if(self.cameraUsed){
+            newController.cameraUsed = true
+        }
         navigationController?.pushViewController(newController, animated: true)
 
     }
     
-    var selectedImages : [UIImage]=[]
-    var hasReturnedFromVideo : Bool = false
-    var hasReturnedFromReordering : Bool = false
-    var userImages : [UIImage] = []
+    
+    @IBOutlet weak var cameraImageView: UIImageView!
+    
+    var selectedImages: [UIImage]=[]
+//    var hasReturnedFromVideo : Bool = false
+    var cameraImages: [UIImage] = []
+    var totalSelectedImages: [UIImage] = []
+    var hasReturnedFromReordering: Bool = false
+    var cameraUsed = false
+    var userImages: [UIImage] = []
     var permissionGranted = false
     let cellName = "GalleryCollectionViewCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        self.navigationController?.isNavigationBarHidden = false
         initialize()
         if permissionGranted{
             getImages()
@@ -59,24 +69,32 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+    }
     override func viewDidAppear(_ animated: Bool) {
-        if hasReturnedFromReordering || hasReturnedFromVideo {
-                selectedImages.removeAll()
-                selectedImages = []
-        }
+//        if !selectedImages.isEmpty {
+//                selectedImages.removeAll()
+//                selectedImages = []
+//        }
         
-        if hasReturnedFromVideo{
-            galleryView.reloadData()
-            hasReturnedFromVideo = false
+//        if hasReturnedFromVideo{
+//            galleryView.reloadData()
+//            hasReturnedFromVideo = false
+//        }
+        if cameraImages.count > 0 && cameraUsed{
+            cameraImageView.image = cameraImages[0]
         }
-        
+        else{
+            cameraImageView.isHidden = true
+        }
     PHPhotoLibrary.requestAuthorization { (status) in
         switch status{
         case .authorized :
             DispatchQueue.main.async {
                 print("User access authorized")
 
-                if !self.permissionGranted && !self.hasReturnedFromReordering{
+                if !self.permissionGranted{
                     self.permissionGranted = true
                     self.getImages()
                     self.galleryView.reloadData()
@@ -107,6 +125,23 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
 
 
     
+   
+    @IBAction func deleteCameraImages(_ sender: Any) {
+        let alert = UIAlertController(title: "ALERT",message: "Delete Camera Selected Images?",preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: {
+            (alertAction: UIAlertAction!) in
+            alert.dismiss(animated: true, completion:nil) }))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive , handler: { (alertAction : UIAlertAction!) in
+            
+            self.cameraImageView.isHidden = true
+            self.cameraImageView.image = nil
+            self.cameraImages = []
+        }))
+
+    }
+    
+    
     func initialize(){
         galleryView.dataSource = self
         galleryView.delegate = self
@@ -119,40 +154,8 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     }
     
     
-    @IBAction func cameraButton(_ sender: Any) {
+   
     
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-    
-            imagePicker.allowsEditing = false
-            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-            imagePicker.cameraCaptureMode = .photo
-            imagePicker.modalPresentationStyle = .fullScreen
-            present(imagePicker,animated: true,completion: nil)
-        } else {
-            noCamera()
-        }
-    
-    }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        hasReturnedFromReordering = false
-        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        selectedImages.append(chosenImage)
-        dismiss(animated: true, completion: nil)
-    
-}
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-    }
-
-
-    func noCamera(){
-    print("No Camera")
-    }
-
 
 
 
@@ -170,7 +173,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         let fetchResults = PHAsset.fetchAssets(with: .image, options: nil)
         if(fetchResults.count>0){
             for i in 0...(fetchResults.count-1){
-                imageManagerObject.requestImage(for: fetchResults.object(at: i), targetSize:CGSize(width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height*0.3) , contentMode: .aspectFit , options: requestOptions, resultHandler: {image, error in self.userImages.append(image!)
+                imageManagerObject.requestImage(for: fetchResults.object(at: i), targetSize:CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height) , contentMode: .aspectFit , options: requestOptions, resultHandler: {image, error in self.userImages.append(image!)
                 })
                 
                 
