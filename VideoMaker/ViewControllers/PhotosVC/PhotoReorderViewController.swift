@@ -203,7 +203,7 @@ class PhotoReorderViewController: UIViewController {
         default:
             selectedImagesCollectionView.cancelInteractiveMovement()
         }
-        selectedImagesCollectionView.reloadData()
+//        selectedImagesCollectionView.reloadData()
 
     
     }

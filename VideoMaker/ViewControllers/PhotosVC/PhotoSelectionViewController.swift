@@ -25,6 +25,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         }
         
         
+        
         for path in indexPathsSelected!{
             selectedImages.append(userImages[path.item])
         }
@@ -40,6 +41,8 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     
     
     @IBOutlet weak var cameraImageView: UIImageView!
+    
+    @IBOutlet weak var cameraView: UIView!
     
     var selectedImages: [UIImage]=[]
 //    var hasReturnedFromVideo : Bool = false
@@ -71,6 +74,9 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
+        if cameraImages.count == 0{
+            cameraView.isHidden = true
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
 //        if !selectedImages.isEmpty {
@@ -134,7 +140,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
             alert.dismiss(animated: true, completion:nil) }))
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive , handler: { (alertAction : UIAlertAction!) in
             
-            self.cameraImageView.isHidden = true
+            self.cameraView.isHidden = true
             self.cameraImageView.image = nil
             self.cameraImages = []
         }))
@@ -162,29 +168,33 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
 
 
     func getImages(){
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        myActivityIndicator.center = view.center
-        myActivityIndicator.hidesWhenStopped = true
-        view.addSubview(myActivityIndicator)
-
+        
+            
+//        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+//        myActivityIndicator.center = view.center
+//        myActivityIndicator.hidesWhenStopped = true
+//        view.addSubview(myActivityIndicator)
+//        myActivityIndicator.startAnimating()
         let imageManagerObject = PHImageManager.default()
         let requestOptions = PHImageRequestOptions()
         requestOptions.isSynchronous = true
         let fetchResults = PHAsset.fetchAssets(with: .image, options: nil)
         if(fetchResults.count>0){
             for i in 0...(fetchResults.count-1){
-                imageManagerObject.requestImage(for: fetchResults.object(at: i), targetSize:CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height) , contentMode: .aspectFit , options: requestOptions, resultHandler: {image, error in self.userImages.append(image!)
-                })
+                imageManagerObject.requestImage(for: fetchResults.object(at: i), targetSize:CGSize(width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height/2) , contentMode: .aspectFit , options: requestOptions, resultHandler: {image, error in
+                   
+                    self.userImages.append(image!)
+                    })
                 
                 
             }
         
         }
-        myActivityIndicator.stopAnimating()
+//        myActivityIndicator.stopAnimating()
         return
     }
-    
-   }
+    }
+   
 
 
 extension PhotoSelectionViewController : UICollectionViewDataSource{

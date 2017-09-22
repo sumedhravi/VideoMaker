@@ -21,7 +21,8 @@ class CustomCameraViewController: UIViewController {
         captureButton.layer.cornerRadius = 30
         captureButton.clipsToBounds = true
         self.navigationController?.isNavigationBarHidden = true
-
+//        NotificationCenter.default.addObserver(self, selector: #selector(rotated)
+//            , name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         // Do any additional setup after loading the view.
     }
 
@@ -313,6 +314,32 @@ extension CustomCameraViewController{
         }
         
     }
+    
+//    func rotated() {
+//        if UIDeviceOrientationIsLandscape(UIDevice.current.orientation) {
+//            if UIDevice.current.orientation == UIDeviceOrientation.landscapeLeft{
+//                videoPreviewLayer?.connection.videoOrientation = AVCaptureVideoOrientation.landscapeRight
+//            }
+//            else
+//            {
+//                videoPreviewLayer?.connection.videoOrientation = AVCaptureVideoOrientation.landscapeLeft
+//                
+//            }
+//        }
+//        
+//        if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
+//            if UIDevice.current.orientation == UIDeviceOrientation.portrait{
+//                
+//                videoPreviewLayer?.connection.videoOrientation = AVCaptureVideoOrientation.portrait
+//            }
+//            else
+//            {
+//                videoPreviewLayer?.connection.videoOrientation = AVCaptureVideoOrientation.portraitUpsideDown
+//                
+//            }
+//        }
+//        
+//    }
     
     
 }

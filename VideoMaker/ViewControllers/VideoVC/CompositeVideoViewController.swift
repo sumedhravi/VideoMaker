@@ -50,7 +50,9 @@ class CompositeVideoViewController: AVPlayerViewController {
 //        NotificationCenter.removeObserver(self)
         
     }
+    
     func handleNotification() {
+        
         if playCount == 0{
             playCount += 1
             let alert = UIAlertController(title: "",message: "Do you want to save this video to gallery or discard it?",preferredStyle: .alert)
@@ -69,6 +71,7 @@ class CompositeVideoViewController: AVPlayerViewController {
     
     func saveToLibrary(){
         playCount = 1
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
 //        PHPhotoLibrary.requestAuthorization { status in
 //            guard status == .authorized else { return }
 //            
@@ -89,8 +92,15 @@ class CompositeVideoViewController: AVPlayerViewController {
 //                    }
 //            }
 //        }
-        CustomAlbum.sharedInstance.save(url: self.finalVideoURL)
-    }
+        CustomAlbum.sharedInstance.save(url: self.finalVideoURL, completion: createAlertVC)
+//            let alert = UIAlertController(title: "",message: "Saved",preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
+//                                        alert.dismiss(animated: true, completion: nil)}))
+//                                    self.present(alert, animated: true, completion: nil)
+//                                    self.navigationItem.rightBarButtonItem?.isEnabled = false
+
+        }
+    
     
     func goBack(){
         
@@ -101,6 +111,17 @@ class CompositeVideoViewController: AVPlayerViewController {
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
+    
+    
+    func createAlertVC(){
+        let alert = UIAlertController(title: "",message: "Saved",preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
+                                    alert.dismiss(animated: true, completion: nil)}))
+                                self.present(alert, animated: true, completion: nil)
+    }
+}
+    
+
     /*
     // MARK: - Navigation
 
@@ -111,4 +132,3 @@ class CompositeVideoViewController: AVPlayerViewController {
     }
     */
 
-}

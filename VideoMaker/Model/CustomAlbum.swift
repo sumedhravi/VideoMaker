@@ -72,9 +72,10 @@ class CustomAlbum: NSObject {
         return nil
     }
     
-    func save(url : URL) {
+    func save(url : URL, completion:@escaping ()->Void)  {
+        
         if assetCollection == nil {
-            return                          // if there was an error upstream, skip the save
+            return                  // if there was an error upstream, skip the save
         }
         
         PHPhotoLibrary.shared().performChanges({
@@ -84,6 +85,16 @@ class CustomAlbum: NSObject {
             let enumeration: NSArray = [assetPlaceHolder!]
             albumChangeRequest!.addAssets(enumeration)
             
-        }, completionHandler: nil)
-    }
+        }) {( success, error) in
+                            if !success {
+                                print("Could not save video to photo library:", error!)
+                            }
+                            else{
+                                    completion()
+                                }
+        
+            
+        }
+}
+
 }
