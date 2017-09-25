@@ -118,7 +118,8 @@ class ModeSelectionViewController: UIViewController {
     }
     
     @IBAction func albumButton(_ sender: Any) {
-        
+        let newController = self.storyboard?.instantiateViewController(withIdentifier: "AlbumViewController") as! AlbumViewController
+        self.navigationController?.pushViewController(newController, animated: true)
     
     }
     

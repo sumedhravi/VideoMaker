@@ -290,7 +290,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-            timestampString = "527758877.68621"
+            timestampString = "528007002.108193"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "97"
@@ -370,12 +370,12 @@
                   moduleName = "VideoMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-                  timestampString = "527775571.813143"
+                  timestampString = "528023773.1479"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "119"
                   endingLineNumber = "119"
-                  offsetFromSymbolStart = "904">
+                  offsetFromSymbolStart = "1096">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -385,12 +385,12 @@
                   moduleName = "VideoMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/ViewControllers/PhotosVC/PhotoSelectionViewController.swift"
-                  timestampString = "527775571.81651"
+                  timestampString = "528023773.150144"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "119"
                   endingLineNumber = "119"
-                  offsetFromSymbolStart = "680">
+                  offsetFromSymbolStart = "784">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -424,6 +424,15 @@
                </BreakpointActionProxy>
             </Actions>
             <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UIColorBreakForOutOfRangeColorComponents"
+                  moduleName = "UIKit"
+                  usesParentBreakpointCondition = "Yes"
+                  offsetFromSymbolStart = "0">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -463,11 +472,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/ModeSelectionViewController.swift"
-            timestampString = "527750385.514741"
+            timestampString = "528007002.108193"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "ModeSelectionViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -479,11 +488,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/ModeSelectionViewController.swift"
-            timestampString = "527750557.148705"
+            timestampString = "528012949.543144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "createGalleryVC()"
             landmarkType = "7">
          </BreakpointContent>
@@ -495,11 +504,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoMaker/ViewControllers/ModeSelectionViewController.swift"
-            timestampString = "527750557.148705"
+            timestampString = "528012949.543144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "ModeSelectionViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -687,12 +696,12 @@
                   moduleName = "VideoMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/Model/CustomAlbum.swift"
-                  timestampString = "527775571.839248"
+                  timestampString = "528023773.188404"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "0"
                   endingLineNumber = "0"
-                  offsetFromSymbolStart = "12">
+                  offsetFromSymbolStart = "4">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -702,12 +711,12 @@
                   moduleName = "VideoMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/Model/CustomAlbum.swift"
-                  timestampString = "527775571.840413"
+                  timestampString = "528023773.189635"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "19"
                   endingLineNumber = "19"
-                  offsetFromSymbolStart = "36">
+                  offsetFromSymbolStart = "27">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -822,6 +831,70 @@
             endingLineNumber = "204"
             landmarkName = "handleLongGesture(gesture:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VideoMaker/ViewControllers/VideoVC/AlbumViewController.swift"
+            timestampString = "528027070.949491"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VideoMaker/ViewControllers/VideoVC/AlbumViewController.swift"
+            timestampString = "528027070.949491"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VideoMaker.AlbumViewController.collectionView (__ObjC.UICollectionView, didSelectItemAt : Foundation.IndexPath) -&gt; ()"
+                  moduleName = "VideoMaker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/ViewControllers/VideoVC/AlbumViewController.swift"
+                  timestampString = "528023773.216133"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "200"
+                  endingLineNumber = "200"
+                  offsetFromSymbolStart = "387">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "VideoMaker.AlbumViewController.(collectionView (__ObjC.UICollectionView, didSelectItemAt : Foundation.IndexPath) -&gt; ()).(closure #1)"
+                  moduleName = "VideoMaker"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sumedhravi/Desktop/VideoMaker/VideoMaker/ViewControllers/VideoVC/AlbumViewController.swift"
+                  timestampString = "528023773.217329"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "189"
+                  endingLineNumber = "189"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
