@@ -25,7 +25,7 @@ class CompositeVideoViewController: AVPlayerViewController {
         NotificationCenter.default.addObserver(self , selector: #selector(handleNotification), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
 //        self.present(playerViewController, animated: true)
 //        do {
-            self.player!.play()
+//            playerViewController.player!.play()
 //        }
         let newButton = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.done, target: self, action: #selector (saveToLibrary))
         self.navigationItem.rightBarButtonItem = newButton
@@ -47,7 +47,7 @@ class CompositeVideoViewController: AVPlayerViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(true)
-//        NotificationCenter.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         
     }
     

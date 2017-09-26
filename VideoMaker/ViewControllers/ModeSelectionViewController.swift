@@ -13,9 +13,9 @@ import Photos
 class ModeSelectionViewController: UIViewController {
     
     var cameraSelectedImages : [UIImage] = []
-        
+    var gradientLayer: CAGradientLayer!
+//    var navGradientLayer: CAGradientLayer!
     
-    @IBOutlet weak var textLabel: UILabel!
 
     
 
@@ -23,7 +23,7 @@ class ModeSelectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        createGradientLayer()
         // Do any additional setup after loading the view.
     }
 
@@ -34,12 +34,21 @@ class ModeSelectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.navigationController?.isNavigationBarHidden = true
-        
+        setNavigationBar()
+//        UIApplication.shared.statusBarStyle = .default
+//        createGradientLayer()
         
 //        self.view.layoutIfNeeded()
 
     }
+    
+//    override func viewDidLayoutSubviews() {
+//        
+//        super.viewDidLayoutSubviews()
+//        self.gradientLayer.frame = self.view.bounds
+//        self.gradientLayer.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
+//
+//    }
     
 
     
@@ -62,20 +71,48 @@ class ModeSelectionViewController: UIViewController {
         let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
         switch authStatus {
         case .authorized: createCameraVC() // Do your stuff here i.e. callCameraMethod()
-        case .denied:             DispatchQueue.main.async {
-            print("User access denied")
-            let alert = UIAlertController(title: "Alert",message: "Camera access needs to be authorized to click images.",preferredStyle: .alert)
-            self.present(alert, animated: true, completion: nil)
+        case .denied:
+            DispatchQueue.main.async {
+                print("User access denied")
+                let alert = UIAlertController(title: "Alert",message: "Camera access needs to be authorized to click images.",preferredStyle: .alert)
+                self.present(alert, animated: true, completion: nil)
             
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
                 (alertAction: UIAlertAction!) in
-                alert.dismiss(animated: true, completion: nil)
-                UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
+                    alert.dismiss(animated: true, completion: nil)
+                    UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
                 
-            }))
+                }))
             }
 
-        case .notDetermined: print("Not Determined")
+        case .notDetermined:
+            
+             print("Not Determined")
+            
+            AVCaptureDevice.requestAccess(forMediaType: AVMediaTypeVideo) { granted in
+                if granted {
+                    print("Granted access to \(AVMediaTypeVideo)")
+                    self.createCameraVC()
+                } else {
+                    print("Denied access to \(AVMediaTypeVideo)")
+                    DispatchQueue.main.async {
+                        print("User access denied")
+                        let alert = UIAlertController(title: "Alert",message: "Camera access needs to be authorized to click images.",preferredStyle: .alert)
+                        self.present(alert, animated: true, completion: nil)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
+                            (alertAction: UIAlertAction!) in
+                            alert.dismiss(animated: true, completion: nil)
+                            UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
+                            
+                        }))
+                    }
+
+                    
+                }
+            }
+            
+            
         default: print("Default")
         
         }
@@ -144,6 +181,39 @@ class ModeSelectionViewController: UIViewController {
         
     }
     
+    func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.layer.bounds
+        
+        gradientLayer.colors = [UIColor(colorLiteralRed: 80/255, green: 201/255, blue: 195/255, alpha: 100 ).cgColor, UIColor(colorLiteralRed: 150/255, green: 222/255, blue: 218/255, alpha: 100).cgColor ]
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+
+//        self.view.layer.addSublayer(gradientLayer)
+    }
+    
+    
+    func setNavigationBar(){
+        let navGradientLayer = CAGradientLayer()
+        self.navigationController?.isNavigationBarHidden = true
+        navGradientLayer.frame = CGRect(x: 0, y: -20, width: UIApplication.shared.statusBarFrame.width, height: UIApplication.shared.statusBarFrame.height + (navigationController?.navigationBar.frame.height)!)
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        navGradientLayer.colors = [UIColor(colorLiteralRed: 80/255, green: 201/255, blue: 195/255, alpha: 100 ).cgColor, UIColor(colorLiteralRed: 150/255, green: 222/255, blue: 218/255, alpha: 100).cgColor ]
+        self.navigationController?.navigationBar.setBackgroundImage(image(fromLayer: navGradientLayer), for: UIBarMetrics.default)
+    }
+    
+    func image(fromLayer layer: CALayer) -> UIImage {
+        UIGraphicsBeginImageContext(layer.frame.size)
+        
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return outputImage!
+    }
 }
     
     

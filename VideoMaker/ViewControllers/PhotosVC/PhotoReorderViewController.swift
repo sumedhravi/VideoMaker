@@ -70,10 +70,10 @@ class PhotoReorderViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        let galleryVC = self.navigationController?.viewControllers[1] as! PhotoSelectionViewController
-        //        galleryVC.hasReturnedFromReordering = true
-        galleryVC.selectedImages.removeAll()
-        galleryVC.selectedImages = []
+//        let galleryVC = self.navigationController?.viewControllers[1] as! PhotoSelectionViewController
+//        //        galleryVC.hasReturnedFromReordering = true
+//        galleryVC.selectedImages.removeAll()
+//        galleryVC.selectedImages = []
         
 
     }
@@ -86,8 +86,9 @@ class PhotoReorderViewController: UIViewController {
     }
     
     func configureNavigationItem(){
-        navigationItem.title = "Selected Images"
+        navigationItem.title = "Create Video"
         let newButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector (proceed))
+        
         
         self.navigationItem.rightBarButtonItem = newButton
 //        let newBackButton = UIBarButtonItem(title: "Home", style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
@@ -109,13 +110,13 @@ class PhotoReorderViewController: UIViewController {
         flowLayoutInitialization()
     }
     
-    @IBAction func goBack(_ sender: Any) {
-      
-        let galleryVC = self.navigationController?.viewControllers[1] as! PhotoSelectionViewController
-        galleryVC.selectedImages.removeAll()
-        galleryVC.selectedImages = []
-        self.navigationController?.popToViewController(galleryVC, animated: true)
-    }
+//    @IBAction func goBack(_ sender: Any) {
+//      
+//        let galleryVC = self.navigationController?.viewControllers[1] as! PhotoSelectionViewController
+//        galleryVC.selectedImages.removeAll()
+//        galleryVC.selectedImages = []
+//        self.navigationController?.popToViewController(galleryVC, animated: true)
+//    }
     
     
     func proceed() {
@@ -351,14 +352,14 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
         if collectionView == audioCollectionView{
         return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         }
-        return UIEdgeInsets.zero
+        return UIEdgeInsets(top: 1, left: 2, bottom: 30, right: 2)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         
         if collectionView == selectedImagesCollectionView{
             
-        return CGSize(width: (UIScreen.main.bounds.width-2)/3 , height: (UIScreen.main.bounds.width-2)/3)
+        return CGSize(width: (UIScreen.main.bounds.width-6)/3 , height: (UIScreen.main.bounds.width-6)/3)
     
         }
         else{

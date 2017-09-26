@@ -15,7 +15,7 @@ class CustomCameraViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageCollection.register(UINib(nibName: "CameraCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CameraCollectionViewCell")
-        self.createCamera()
+        createCamera()
         self.imageCollection.dataSource = self
         self.imageCollection.delegate = self
         captureButton.layer.cornerRadius = 30
@@ -44,11 +44,13 @@ class CustomCameraViewController: UIViewController {
         }
     }
 
+    
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
         imageCollection.reloadData()
     }
    
+    
     
     @IBOutlet weak var videoCaptureView: UIView!
     
@@ -76,7 +78,19 @@ class CustomCameraViewController: UIViewController {
     
     
     @IBAction func doneButton(_ sender: Any) {
-         let newController = self.storyboard?.instantiateViewController(withIdentifier: "photoSelectionVC") as! PhotoSelectionViewController
+        for image in capturedImages{
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.creationRequestForAsset(from: image)
+            }, completionHandler: { (success, error) in
+                if !success {
+                    print("Could not save video to photo library:", error!)
+                }
+                
+            })
+
+        }
+        
+        let newController = self.storyboard?.instantiateViewController(withIdentifier: "photoSelectionVC") as! PhotoSelectionViewController
         newController.cameraUsed = true
         for image in capturedImages{
             newController.cameraImages.append(image)
@@ -278,6 +292,10 @@ extension CustomCameraViewController{
     
     
     func takePhoto() {
+        if (self.connection?.isVideoOrientationSupported)! {
+            self.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+        }
+
         self.output.captureStillImageAsynchronously(from: self.connection) { buffer, error in
             if let error = error {
                 print("Error capturing Image \(error)")
@@ -291,14 +309,14 @@ extension CustomCameraViewController{
                 
                 self.doneButton.isHidden = false
                 
-                PHPhotoLibrary.shared().performChanges({
-                    PHAssetChangeRequest.creationRequestForAsset(from: image!)
-                }, completionHandler: { (success, error) in
-                    if !success {
-                        print("Could not save video to photo library:", error!)
-                    }
-                    
-                })
+//                PHPhotoLibrary.shared().performChanges({
+//                    PHAssetChangeRequest.creationRequestForAsset(from: image!)
+//                }, completionHandler: { (success, error) in
+//                    if !success {
+//                        print("Could not save video to photo library:", error!)
+//                    }
+//                    
+//                })
                 
             }
         }
@@ -372,7 +390,15 @@ extension CustomCameraViewController: UICollectionViewDataSource,UICollectionVie
             alert.dismiss(animated: true, completion: nil)
             self.capturedImages.remove(at: indexPath.item)
             self.imageCollection.reloadData()
-            
+            if self.capturedImages.count == 0{
+                UIView.animate(withDuration: 0.5) {
+                    self.buttonConstraint.constant = 50
+                    self.buttonConstraintToCollectionView.constant = 50
+                    self.view.layoutIfNeeded()
+//                    self.isViewHidden = false
+                    
+                }
+            }
         }))
 
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in

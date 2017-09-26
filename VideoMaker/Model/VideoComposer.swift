@@ -152,17 +152,17 @@ class VideoWriter {
         
         let data = CVPixelBufferGetBaseAddress(pixelBuffer)
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
-        let context = CGContext(data: data, width: Int(size.width), height: Int(size.height),
+            let context = CGContext(data: data, width: Int(size.width), height: Int(size.height),
                                 bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.premultipliedFirst.rawValue)
         
-        context!.clear(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            context!.clear(CGRect(x: 0, y: 0, width: size.width, height: size.height))
         
-        let horizontalRatio = size.width / image.size.width
-        let verticalRatio = size.height / image.size.height
+            let horizontalRatio = size.width / image.size.width
+            let verticalRatio = size.height / image.size.height
         //let aspectRatio = max(horizontalRatio, verticalRatio) // ScaleAspectFill
-        let aspectRatio = min(horizontalRatio, verticalRatio) // ScaleAspectFit
+            let aspectRatio = min(horizontalRatio, verticalRatio) // ScaleAspectFit
         
-        let newSize = CGSize(width: image.size.width * aspectRatio, height: image.size.height * aspectRatio)
+            let newSize = CGSize(width: image.size.width * aspectRatio, height: image.size.height * aspectRatio)
         
         let x = newSize.width < size.width ? (size.width - newSize.width) / 2 : 0
         let y = newSize.height < size.height ? (size.height - newSize.height) / 2 : 0
