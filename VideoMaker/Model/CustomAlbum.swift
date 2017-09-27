@@ -41,7 +41,6 @@ class CustomAlbum: NSObject {
     
     func requestAuthorizationHandler(status: PHAuthorizationStatus) {
         if PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized {
-            // ideally this ensures the creation of the photo album even if authorization wasn't prompted till after init was done
             print("Trying again to create the album")
             self.createAlbum()
         } else {
@@ -75,7 +74,7 @@ class CustomAlbum: NSObject {
     func save(url : URL, completion:@escaping ()->Void)  {
         
         if assetCollection == nil {
-            return                  // if there was an error upstream, skip the save
+            return
         }
         
         PHPhotoLibrary.shared().performChanges({

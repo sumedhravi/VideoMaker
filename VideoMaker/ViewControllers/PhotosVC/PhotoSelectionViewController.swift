@@ -94,7 +94,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
                     alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
                         (alertAction: UIAlertAction!) in
                         alert.dismiss(animated: true, completion: nil)
-                        UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
+                        UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)! as URL)
                         
                     }))
                 }
@@ -171,7 +171,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         //                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
         //                (alertAction: UIAlertAction!) in
         //                                    alert.dismiss(animated: true, completion: nil)
-        //                    UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
+        //                    UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)! as URL)
         //
         //                 }))
         //            }
@@ -199,22 +199,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     }
     
     
-    
-//    @IBAction func deleteCameraImages(_ sender: Any) {
-//        let alert = UIAlertController(title: "ALERT",message: "Delete Camera Selected Images?",preferredStyle: .alert)
-//        present(alert, animated: true, completion: nil)
-//        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: {
-//            (alertAction: UIAlertAction!) in
-//            alert.dismiss(animated: true, completion:nil) }))
-//        alert.addAction(UIAlertAction(title: "Delete", style: .destructive , handler: { (alertAction : UIAlertAction!) in
-//            
-//            self.cameraView.isHidden = true
-//            self.cameraImageView.image = nil
-//            self.cameraImages = []
-//        }))
-//        
-//    }
-    
+        
     
     func initialize(){
         galleryView.dataSource = self
@@ -279,7 +264,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     
     func getImages(){
         
-            self.myActivityIndicator.startAnimating()
+        self.myActivityIndicator.startAnimating()
         
 //        myActivityIndicator.startAnimating()
         
@@ -397,7 +382,7 @@ extension PhotoSelectionViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         if collectionView == galleryView{
-            return CGSize(width: (UIScreen.main.bounds.width-4)/3 , height: (UIScreen.main.bounds.width-4)/3)
+            return CGSize(width: (UIScreen.main.bounds.width-6)/3 , height: (UIScreen.main.bounds.width-6)/3)
         }
         else{
             return CGSize(width: 70, height: 70)
@@ -410,7 +395,7 @@ extension PhotoSelectionViewController : UICollectionViewDelegateFlowLayout{
             return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         }
         else {
-            return UIEdgeInsets(top: 1, left: 1, bottom: 90, right: 1)
+            return UIEdgeInsets(top: 1, left: 2, bottom: 90, right: 2)
         }
     }
     

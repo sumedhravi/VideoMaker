@@ -13,8 +13,8 @@ import AVFoundation
 class AVMerger: NSObject {
     
     var audioFileURL = URL(fileURLWithPath: "")
-    var videoFileURL = NSURL(fileURLWithPath: "")
-    var outputVideoUrl = NSURL(fileURLWithPath: "")
+    var videoFileURL = URL(fileURLWithPath: "")
+    var outputVideoUrl = URL(fileURLWithPath: "")
     let fileName = "CompositeSampleVideo"
     
     //    func addWatermark(){
@@ -27,7 +27,7 @@ class AVMerger: NSObject {
     //    }
     
     
-    func mergeFilesWithUrl(videoUrl: NSURL, audioUrl: NSURL , watermark: Bool, completionHandler : @escaping (NSURL?)->Void) {
+    func mergeFilesWithUrl(videoUrl: URL, audioUrl: URL , watermark: Bool, completionHandler : @escaping (URL?)->Void) {
         
         let mixComposition: AVMutableComposition = AVMutableComposition()
         var mutableCompositionVideoTrack: [AVMutableCompositionTrack] = []
@@ -134,29 +134,22 @@ class AVMerger: NSObject {
                 
             case AVAssetExportSessionStatus.completed:
                 
-                self.outputVideoUrl = savePathUrl as NSURL
-                completionHandler(savePathUrl as NSURL)
+                self.outputVideoUrl = savePathUrl as URL
+                completionHandler(savePathUrl as URL)
                 
                 
                 print("success")
             case  AVAssetExportSessionStatus.failed:
-                print("failed \(assetExport.error)")
+                print("failed \(String(describing: assetExport.error))")
                 
-                if completionHandler != nil {
-                    completionHandler(nil)
-                }
+                
+                
             case AVAssetExportSessionStatus.cancelled:
-                print("cancelled \(assetExport.error)")
+                print("cancelled \(String(describing: assetExport.error))")
                 
-                if completionHandler != nil {
-                    completionHandler(nil)
-                }
             default:
                 print("complete")
                 
-                if completionHandler != nil {
-                    completionHandler(nil)
-                }
             }
         }
     }

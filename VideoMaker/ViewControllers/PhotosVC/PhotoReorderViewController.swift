@@ -12,10 +12,10 @@ import Photos
 
 class PhotoReorderViewController: UIViewController {
     var userImages: [UIImage] = []
-    var videoURL = NSURL(fileURLWithPath: "")
+    var videoURL = URL(fileURLWithPath: "")
     var audioList = ["Track 0", "Track 1", "Track 2", "Track 3", "Track 4", "Track 5", "Track 6"]
     var audioPlayer = AVAudioPlayer()
-    var selectedAudio = NSURL(fileURLWithPath: "")
+    var selectedAudio = URL(fileURLWithPath: "")
     var myActivityIndicator: UIActivityIndicatorView!
 //    var isViewHidden = true
     var cameraUsed = false
@@ -80,9 +80,12 @@ class PhotoReorderViewController: UIViewController {
     private func configureActivityIndicator() {
         
         myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
-        myActivityIndicator.color = UIColor(colorLiteralRed: 150/255, green: 222/255, blue: 218/255, alpha: 1)
+        myActivityIndicator.frame = CGRect(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2, width: 50, height: 50)
+//        myActivityIndicator.color = UIColor(red: 150/255, green: 222/255, blue: 218/255, alpha: 1)
+        myActivityIndicator.layer.cornerRadius = 5
         myActivityIndicator.center = view.center
         myActivityIndicator.hidesWhenStopped = true
+        myActivityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.5)
         view.addSubview(myActivityIndicator)
     }
     
@@ -121,6 +124,7 @@ class PhotoReorderViewController: UIViewController {
     
     
     func proceed() {
+
         if (audioCollectionView.indexPathsForSelectedItems?.isEmpty)!{
             let alert = UIAlertController(title: "Alert!",message: "Please Select Audio Track",preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
@@ -129,10 +133,10 @@ class PhotoReorderViewController: UIViewController {
             return
         }
         else{
-            let asset = AVAsset(url: selectedAudio as URL)
+            let asset = AVAsset(url: selectedAudio)
             let assetDuration = Int(CMTimeGetSeconds(asset.duration))
             let imagesAllowed = assetDuration/2 //fps
-            if(imagesAllowed<userImages.count*2){
+            if(imagesAllowed<userImages.count){
                 let alert = UIAlertController(title: "Alert!",message: "You can only select \(imagesAllowed) images for this audio. You have selected \(userImages.count)",preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
                     alert.dismiss(animated: true, completion: nil)}))
@@ -141,8 +145,12 @@ class PhotoReorderViewController: UIViewController {
 
             }
             audioPlayer.stop()
-            
+//            self.view.alpha = 0.5
+//            self.view.addSubview(myActivityIndicator)
+            myActivityIndicator.alpha = 1
+            view.layoutIfNeeded()
             myActivityIndicator.startAnimating()
+            
             let settings = VideoComposer.RenderSettings()
             let imageAnimator = VideoComposer.ImageAnimator(renderSettings:settings, imageArray: userImages)
             videoURL = settings.outputURL
@@ -171,7 +179,7 @@ class PhotoReorderViewController: UIViewController {
                                 DispatchQueue.main.async {
                                     self.myActivityIndicator.stopAnimating()
                                     let newController = self.storyboard?.instantiateViewController(withIdentifier: "playerVC") as! CompositeVideoViewController
-                                    newController.finalVideoURL = mergedVideoUrl as! URL
+                                    newController.finalVideoURL = mergedVideoUrl!
                                     if(self.cameraUsed){
                                         newController.cameraUsed = true
                                     }
@@ -297,8 +305,8 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
             let trackID = indexPath.row
             let path: String! = Bundle.main.resourcePath?.appending("/\(trackID).mp3")
             
-            let mp3URL = NSURL(fileURLWithPath: path)
-            let asset = AVURLAsset(url: mp3URL as URL)
+            let mp3URL = URL(fileURLWithPath: path)
+        
             selectedAudio = mp3URL
             let cell = audioCollectionView.cellForItem(at: indexPath) as! AudioCollectionViewCell
             

@@ -80,7 +80,7 @@ class ModeSelectionViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
                 (alertAction: UIAlertAction!) in
                     alert.dismiss(animated: true, completion: nil)
-                    UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
+                    UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)! as URL)
                 
                 }))
             }
@@ -103,7 +103,7 @@ class ModeSelectionViewController: UIViewController {
                         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
                             (alertAction: UIAlertAction!) in
                             alert.dismiss(animated: true, completion: nil)
-                            UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
+                            UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)! as URL)
                             
                         }))
                     }
@@ -138,7 +138,7 @@ class ModeSelectionViewController: UIViewController {
                     alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
                         (alertAction: UIAlertAction!) in
                         alert.dismiss(animated: true, completion: nil)
-                        UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
+                        UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)! as URL)
                         
                     }))
                 }

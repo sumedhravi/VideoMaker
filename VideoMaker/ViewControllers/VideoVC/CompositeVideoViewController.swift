@@ -55,13 +55,13 @@ class CompositeVideoViewController: AVPlayerViewController {
         
         if playCount == 0{
             playCount += 1
-            let alert = UIAlertController(title: "",message: "Do you want to save this video to gallery or discard it?",preferredStyle: .alert)
+            let alert = UIAlertController(title: "",message: "Do you want to save this video to gallery?",preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: {
             (alertAction: UIAlertAction!) in
             self.navigationItem.rightBarButtonItem?.isEnabled = false
-                self.saveToLibrary()
+            self.saveToLibrary()
                 alert.dismiss(animated: true, completion:nil) }))
-            alert.addAction(UIAlertAction(title: "Discard", style: UIAlertActionStyle.destructive, handler: {(alertAction: UIAlertAction!) in
+            alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.destructive, handler: {(alertAction: UIAlertAction!) in
                 alert.dismiss(animated: true, completion: nil)}))
             present(alert, animated: true, completion: nil)
             return

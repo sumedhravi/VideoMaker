@@ -120,7 +120,7 @@ class CustomCameraViewController: UIViewController {
             return
         }
         let alert = UIAlertController(title: "Alert!",message: "Are you sure you want to discard these images?",preferredStyle:.alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive, handler: {(alertAction: UIAlertAction!) in
+        alert.addAction(UIAlertAction(title: "Discard", style: UIAlertActionStyle.destructive, handler: {(alertAction: UIAlertAction!) in
             alert.dismiss(animated: true, completion: nil)
             self.dismiss(animated: true, completion: nil)
         }))

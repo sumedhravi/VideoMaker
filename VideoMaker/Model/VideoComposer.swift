@@ -29,12 +29,12 @@ class VideoComposer : NSObject {
             return CGSize(width: width, height: height)
         }
         
-        var outputURL: NSURL {
+        var outputURL: URL {
             // Use the CachesDirectory so the rendered video file sticks around as long as we need it to.
             // Using the CachesDirectory ensures the file won't be included in a backup of the app.
             let fileManager = FileManager.default
             if let tmpDirURL = try? fileManager.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true) {
-                return tmpDirURL.appendingPathComponent(videoFilename).appendingPathExtension(videoFilenameExt) as NSURL
+                return tmpDirURL.appendingPathComponent(videoFilename).appendingPathExtension(videoFilenameExt) as URL
             }
             fatalError("URLForDirectory() failed")
         }
@@ -53,7 +53,7 @@ class ImageAnimator {
     
     var frameNum = 0
     
-    class func saveToLibrary(videoURL: NSURL) {
+    class func saveToLibrary(videoURL: URL) {
         PHPhotoLibrary.requestAuthorization { status in
             guard status == .authorized else { return }
             
@@ -67,9 +67,9 @@ class ImageAnimator {
         }
     }
     
-    class func removeFileAtURL(fileURL: NSURL) {
+    class func removeFileAtURL(fileURL: URL) {
         do {
-            try FileManager.default.removeItem(atPath: fileURL.path!)
+            try FileManager.default.removeItem(atPath: fileURL.path)
         }
         catch _ as NSError {
             // Assume file doesn't exist.
@@ -192,7 +192,7 @@ class VideoWriter {
             pixelBufferAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: videoWriterInput, sourcePixelBufferAttributes: sourcePixelBufferAttributesDictionary)
         }
         
-        func createAssetWriter(outputURL: NSURL) -> AVAssetWriter {
+        func createAssetWriter(outputURL: URL) -> AVAssetWriter {
             guard let assetWriter = try? AVAssetWriter(outputURL: outputURL as URL, fileType: AVFileTypeMPEG4) else {
                 fatalError("AVAssetWriter() failed")
             }
