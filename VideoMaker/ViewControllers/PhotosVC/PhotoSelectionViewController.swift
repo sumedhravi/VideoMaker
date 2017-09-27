@@ -14,6 +14,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     @IBOutlet weak var galleryView: UICollectionView!
     
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
+        
         let indexPathsSelected = self.galleryView.indexPathsForSelectedItems
         guard (!cameraImages.isEmpty || !(indexPathsSelected?.isEmpty)!) else{
             let alert = UIAlertController(title: "ALERT",message: "No Images Selected",preferredStyle: .alert)
@@ -26,28 +27,33 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         
         requestOptions.isSynchronous = true
         requestOptions.deliveryMode = .highQualityFormat
+        DispatchQueue.main.async {
+            self.myActivityIndicator.startAnimating()
+        }
         
         for path in indexPathsSelected!{
-            imageManagerObject.requestImage(for: fetchResults.object(at: path.item), targetSize:PHImageManagerMaximumSize , contentMode: .aspectFit , options: requestOptions, resultHandler: {image, error in
+            self.imageManagerObject.requestImage(for: self.fetchResults.object(at: path.item), targetSize:CGSize(width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height/2 ) , contentMode: .aspectFit , options: self.requestOptions, resultHandler: { image, error in
                 
                 self.selectedImages.append(image!)
-                
+//                self.pushController()
             })
-
             
         }
-        totalSelectedImages = selectedImages + cameraImages
-        let newController = self.storyboard?.instantiateViewController(withIdentifier: "photoReorderVC") as! PhotoReorderViewController
-        newController.userImages = totalSelectedImages
-        if(self.cameraUsed){
-            newController.cameraUsed = true
-        }
-        navigationController?.pushViewController(newController, animated: true)
+        self.pushController()
+        
+//        totalSelectedImages = selectedImages + cameraImages
+//        let newController = self.storyboard?.instantiateViewController(withIdentifier: "photoReorderVC") as! PhotoReorderViewController
+//        newController.userImages = totalSelectedImages
+//        if(self.cameraUsed){
+//            newController.cameraUsed = true
+//        }
+//        navigationController?.pushViewController(newController, animated: true)
         
     }
     
     
-    @IBOutlet weak var cameraImageView: UIImageView!
+    
+    @IBOutlet weak var cameraImageCollection: UICollectionView!
     
     @IBOutlet weak var cameraView: UIView!
     
@@ -117,7 +123,11 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         self.navigationController?.isNavigationBarHidden = false
         
 
-        if cameraImages.count == 0{
+        if cameraImages.count > 0 && cameraUsed{
+            cameraView.isHidden = false
+            
+        }
+        else{
             cameraView.isHidden = true
         }
     }
@@ -132,12 +142,13 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         //            hasReturnedFromVideo = false
         //        }
         setNavigationBar()
-        if cameraImages.count > 0 && cameraUsed{
-            cameraImageView.image = cameraImages[0]
-        }
-        else{
-            cameraImageView.isHidden = true
-        }
+//        if cameraImages.count > 0 && cameraUsed{
+//            cameraView.isHidden = false
+//            
+//        }
+//        else{
+//            cameraView.isHidden = true
+//        }
         //    PHPhotoLibrary.requestAuthorization { (status) in
         //        switch status{
         //        case .authorized :
@@ -189,27 +200,31 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     
     
     
-    @IBAction func deleteCameraImages(_ sender: Any) {
-        let alert = UIAlertController(title: "ALERT",message: "Delete Camera Selected Images?",preferredStyle: .alert)
-        present(alert, animated: true, completion: nil)
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: {
-            (alertAction: UIAlertAction!) in
-            alert.dismiss(animated: true, completion:nil) }))
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive , handler: { (alertAction : UIAlertAction!) in
-            
-            self.cameraView.isHidden = true
-            self.cameraImageView.image = nil
-            self.cameraImages = []
-        }))
-        
-    }
+//    @IBAction func deleteCameraImages(_ sender: Any) {
+//        let alert = UIAlertController(title: "ALERT",message: "Delete Camera Selected Images?",preferredStyle: .alert)
+//        present(alert, animated: true, completion: nil)
+//        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.cancel, handler: {
+//            (alertAction: UIAlertAction!) in
+//            alert.dismiss(animated: true, completion:nil) }))
+//        alert.addAction(UIAlertAction(title: "Delete", style: .destructive , handler: { (alertAction : UIAlertAction!) in
+//            
+//            self.cameraView.isHidden = true
+//            self.cameraImageView.image = nil
+//            self.cameraImages = []
+//        }))
+//        
+//    }
     
     
     func initialize(){
         galleryView.dataSource = self
         galleryView.delegate = self
+        cameraImageCollection.dataSource = self
+        cameraImageCollection.delegate = self
         galleryView.allowsSelection = true
         galleryView.allowsMultipleSelection = true
+        self.cameraImageCollection.register(UINib(nibName: "CameraCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CameraCollectionViewCell")
+
         self.galleryView.register(UINib(nibName: cellName, bundle: nil), forCellWithReuseIdentifier: cellName)
         flowLayoutInitialization()
         myActivityIndicator.center = view.center
@@ -220,7 +235,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         
     }
     
-    
+
     
     func setNavigationBar(){
         let navGradientLayer = CAGradientLayer()
@@ -246,7 +261,19 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     }
 
     
-    
+    func pushController(){
+        DispatchQueue.main.async{
+            self.myActivityIndicator.stopAnimating()
+        }
+        totalSelectedImages = selectedImages + cameraImages
+        let newController = self.storyboard?.instantiateViewController(withIdentifier: "photoReorderVC") as! PhotoReorderViewController
+        newController.userImages = totalSelectedImages
+        if(self.cameraUsed){
+            newController.cameraUsed = true
+        }
+        navigationController?.pushViewController(newController, animated: true)
+        
+    }
     
     
     
@@ -283,36 +310,50 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
 
 extension PhotoSelectionViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchResults.count
+        if collectionView == galleryView{
+            return fetchResults.count
+        }
+        else {
+            return cameraImages.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellName, for: indexPath) as! GalleryCollectionViewCell
-        imageManagerObject.requestImage(for: fetchResults.object(at: indexPath.row), targetSize:CGSize(width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height/2) , contentMode: .aspectFit , options: requestOptions, resultHandler: {image, error in
-            
-                cell.imageView.image = image
-                cell.imageView.contentMode = .scaleAspectFill
-            
-        })
+        if collectionView == galleryView{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellName, for: indexPath) as! GalleryCollectionViewCell
+            imageManagerObject.requestImage(for: fetchResults.object(at: indexPath.row), targetSize:CGSize(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height/3) , contentMode: .aspectFit , options: requestOptions, resultHandler: {image, error in
+                
+                    cell.imageView.image = image
+                    cell.imageView.contentMode = .scaleAspectFill
+                
+            })
 
-        
-        
-//        cell.imageView.image = userImages[indexPath.item]
-        cell.imageView.contentMode = .scaleAspectFill
-        if cell.isSelected{
             
             
-            cell.selectionImage.isHidden = false
+    //        cell.imageView.image = userImages[indexPath.item]
+            cell.imageView.contentMode = .scaleAspectFill
+            if cell.isSelected{
+                
+                
+                cell.selectionImage.isHidden = false
+            }
+            else{
+                cell.selectionImage.isHidden = true
+            }
+            
+            
+            
+            return cell
+        
         }
+    
         else{
-            cell.selectionImage.isHidden = true
+    
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CameraCollectionViewCell", for: indexPath) as! CameraCollectionViewCell
+            cell.cellImage.image = cameraImages[indexPath.item]
+            return cell
+
         }
-        
-        
-        
-        return cell
-        
     }
     
 }
@@ -320,15 +361,28 @@ extension PhotoSelectionViewController : UICollectionViewDataSource{
 extension PhotoSelectionViewController : UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)as! GalleryCollectionViewCell
-        cell.selectionImage.isHidden = false
-        
+        if collectionView == galleryView{
+            
+            let cell = collectionView.cellForItem(at: indexPath)as! GalleryCollectionViewCell
+            cell.selectionImage.isHidden = false
+        }
+            
+        else{
+            cameraImages.remove(at: indexPath.item)
+            cameraImageCollection.reloadData()
+            if cameraImages.count==0 {
+                self.cameraView.isHidden = true
+            }
+
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        
-        let cell = collectionView.cellForItem(at: indexPath)as! GalleryCollectionViewCell
-        cell.selectionImage.isHidden = true
+        if collectionView == galleryView{
+            
+            let cell = collectionView.cellForItem(at: indexPath)as! GalleryCollectionViewCell
+            cell.selectionImage.isHidden = true
+        }
         
     }
     
@@ -342,8 +396,22 @@ extension PhotoSelectionViewController : UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        
-        return CGSize(width: (UIScreen.main.bounds.width-4)/3 , height: (UIScreen.main.bounds.width-4)/3)
+        if collectionView == galleryView{
+            return CGSize(width: (UIScreen.main.bounds.width-4)/3 , height: (UIScreen.main.bounds.width-4)/3)
+        }
+        else{
+            return CGSize(width: 70, height: 70)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView == cameraImageCollection{
+            
+            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        }
+        else {
+            return UIEdgeInsets(top: 1, left: 1, bottom: 90, right: 1)
+        }
     }
     
 }

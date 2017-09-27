@@ -21,10 +21,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="85" height="85"/>
                     </imageView>
                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cancel" translatesAutoresizingMaskIntoConstraints="NO" id="wZP-We-6LU">
-                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                        <rect key="frame" x="65" y="0.0" width="20" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="20" id="S7F-h2-qgn"/>
-                            <constraint firstAttribute="height" constant="20" id="rvI-ng-DcP"/>
+                            <constraint firstAttribute="height" constant="20" id="KRc-XB-mk8"/>
+                            <constraint firstAttribute="width" constant="20" id="xpR-mT-vnj"/>
                         </constraints>
                     </imageView>
                 </subviews>
@@ -33,9 +33,9 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="7HS-hW-NUr" secondAttribute="trailing" id="8wE-zS-1Uo"/>
                 <constraint firstItem="7HS-hW-NUr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="BhS-Xy-rYw"/>
-                <constraint firstItem="wZP-We-6LU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="CWa-bT-eth"/>
-                <constraint firstItem="wZP-We-6LU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="FRE-SV-T5C"/>
+                <constraint firstItem="wZP-We-6LU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="TGt-y4-Uhq"/>
                 <constraint firstAttribute="bottom" secondItem="7HS-hW-NUr" secondAttribute="bottom" id="YyN-wc-YUI"/>
+                <constraint firstAttribute="trailing" secondItem="wZP-We-6LU" secondAttribute="trailing" id="qgR-QH-l84"/>
                 <constraint firstItem="7HS-hW-NUr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="yod-tE-1Q4"/>
             </constraints>
             <connections>
@@ -45,6 +45,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="Cancel" width="48" height="48"/>
+        <image name="Cancel" width="17" height="17"/>
     </resources>
 </document>

@@ -17,7 +17,6 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.selectionImage.image = UIImage(named:"SelectionTick")
         self.selectionImage.layer.cornerRadius = 15
         self.selectionImage.clipsToBounds = true
     }

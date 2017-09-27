@@ -18,7 +18,7 @@ class CustomCameraViewController: UIViewController {
         createCamera()
         self.imageCollection.dataSource = self
         self.imageCollection.delegate = self
-        captureButton.layer.cornerRadius = 30
+//        captureButton.layer.cornerRadius = 30
         captureButton.clipsToBounds = true
         self.navigationController?.isNavigationBarHidden = true
 //        NotificationCenter.default.addObserver(self, selector: #selector(rotated)
@@ -33,7 +33,7 @@ class CustomCameraViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+
         self.videoPreviewLayer.bounds = self.videoCaptureView.bounds
         self.videoPreviewLayer.position = CGPoint(x: self.videoCaptureView.bounds.midX, y: self.videoCaptureView.bounds.midY)
         if capturedImages.count==0 {
@@ -46,11 +46,18 @@ class CustomCameraViewController: UIViewController {
 
     
     override func viewDidAppear(_ animated: Bool) {
+        self.buttonConstraint.constant = 50
+        self.buttonConstraintToCollectionView.constant = 50
         self.navigationController?.isNavigationBarHidden = true
         imageCollection.reloadData()
     }
    
-    
+    override func viewWillAppear(_ animated: Bool) {
+        self.buttonConstraint.constant = 50
+        self.buttonConstraintToCollectionView.constant = 50
+        self.navigationController?.isNavigationBarHidden = true
+
+    }
     
     @IBOutlet weak var videoCaptureView: UIView!
     
@@ -96,6 +103,11 @@ class CustomCameraViewController: UIViewController {
             newController.cameraImages.append(image)
         }
         capturedImages = []
+//        self.buttonConstraint.constant = 50
+//        self.buttonConstraintToCollectionView.constant = 50
+        
+    
+
         isInitialized = false
         self.navigationController?.pushViewController(newController, animated: true)
 
@@ -301,7 +313,8 @@ extension CustomCameraViewController{
                 print("Error capturing Image \(error)")
             } else {
                 let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(buffer)
-                let image = UIImage(data: imageData!, scale: UIScreen.main.scale)
+                var image = UIImage(data: imageData!, scale: UIScreen.main.scale)
+                image = self.fixedOrientation(image: image!)
                 self.capturedImages.append(image!)
                 DispatchQueue.main.async() {
                     self.imageCollection.reloadData()
@@ -360,6 +373,58 @@ extension CustomCameraViewController{
 //    }
     
     
+    func fixedOrientation(image:UIImage) -> UIImage
+    {
+        if image.imageOrientation == .up {
+            return image
+        }
+        
+        var transform: CGAffineTransform = CGAffineTransform.identity
+        
+        switch image.imageOrientation {
+        case .down, .downMirrored:
+            transform = transform.translatedBy(x: image.size.width, y: image.size.height)
+            transform = transform.rotated(by: CGFloat.pi)
+            break
+        case .left, .leftMirrored:
+            transform = transform.translatedBy(x: image.size.width, y: 0)
+            transform = transform.rotated(by: CGFloat.pi / 2.0)
+            break
+        case .right, .rightMirrored:
+            transform = transform.translatedBy(x: 0, y: image.size.height)
+            transform = transform.rotated(by: CGFloat.pi / -2.0)
+            break
+        case .up, .upMirrored:
+            break
+        }
+        switch image.imageOrientation {
+        case .upMirrored, .downMirrored:
+            transform.translatedBy(x: image.size.width, y: 0)
+            transform.scaledBy(x: -1, y: 1)
+            break
+        case .leftMirrored, .rightMirrored:
+            transform.translatedBy(x: image.size.height, y: 0)
+            transform.scaledBy(x: -1, y: 1)
+        case .up, .down, .left, .right:
+            break
+        }
+        
+        let ctx: CGContext = CGContext(data: nil, width: Int(image.size.width), height: Int(image.size.height), bitsPerComponent: image.cgImage!.bitsPerComponent, bytesPerRow: 0, space: image.cgImage!.colorSpace!, bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
+        
+        ctx.concatenate(transform)
+        
+        switch image.imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            ctx.draw(image.cgImage!, in: CGRect(x: 0, y: 0, width: image.size.height, height: image.size.width))
+        default:
+            ctx.draw(image.cgImage!, in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))
+            break
+        }
+        
+        return UIImage(cgImage: ctx.makeImage()!)
+    }
+    
+    
 }
 
 extension CustomCameraViewController: UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
@@ -391,6 +456,7 @@ extension CustomCameraViewController: UICollectionViewDataSource,UICollectionVie
             self.capturedImages.remove(at: indexPath.item)
             self.imageCollection.reloadData()
             if self.capturedImages.count == 0{
+                self.doneButton.isHidden = true
                 UIView.animate(withDuration: 0.5) {
                     self.buttonConstraint.constant = 50
                     self.buttonConstraintToCollectionView.constant = 50

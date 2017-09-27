@@ -17,7 +17,7 @@ class PhotoReorderViewController: UIViewController {
     var audioPlayer = AVAudioPlayer()
     var selectedAudio = NSURL(fileURLWithPath: "")
     var myActivityIndicator: UIActivityIndicatorView!
-    var isViewHidden = true
+//    var isViewHidden = true
     var cameraUsed = false
     //var watermark :Bool?
     
@@ -25,38 +25,38 @@ class PhotoReorderViewController: UIViewController {
     @IBOutlet weak var selectedImagesCollectionView: UICollectionView!
     
     
-    @IBOutlet weak var buttonConstraint: NSLayoutConstraint!
+        @IBOutlet weak var buttonConstraint: NSLayoutConstraint!
     
-    @IBAction func selectAudioButton(_ sender: UIButton) {
-        if isViewHidden{
-        UIView.animate(withDuration: 0.6, animations: {
-            self.buttonConstraint.constant = 0
-            sender.setTitle(">" , for: UIControlState.normal)
-            self.view.layoutIfNeeded()
-            self.isViewHidden = false
-
-        })
-        }
-        else {
-            UIView.animate(withDuration: 0.6, animations: {
-                self.buttonConstraint.constant = UIScreen.main.bounds.width - 48
-                sender.setTitle("Audio" , for: UIControlState.normal)
-                self.view.layoutIfNeeded()
-                self.isViewHidden=true
-
-            })
-        }
-        
+//    @IBAction func selectAudioButton(_ sender: UIButton) {
+//        if isViewHidden{
+//        UIView.animate(withDuration: 0.6, animations: {
+//            self.buttonConstraint.constant = 0
+//            sender.setTitle(">" , for: UIControlState.normal)
+//            self.view.layoutIfNeeded()
+//            self.isViewHidden = false
+//
+//        })
+//        }
+//        else {
+//            UIView.animate(withDuration: 0.6, animations: {
+//                self.buttonConstraint.constant = UIScreen.main.bounds.width - 48
+//                sender.setTitle("Audio" , for: UIControlState.normal)
+//                self.view.layoutIfNeeded()
+//                self.isViewHidden=true
+//
+//            })
+//        }
+    
 
     
-    }
+//    }
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        buttonConstraint.constant = UIScreen.main.bounds.width - 48
+        //buttonConstraint.constant = UIScreen.main.bounds.width - 48
         
         configureActivityIndicator()
         configureNavigationItem()
@@ -79,7 +79,8 @@ class PhotoReorderViewController: UIViewController {
     }
     private func configureActivityIndicator() {
         
-        myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        myActivityIndicator.color = UIColor(colorLiteralRed: 150/255, green: 222/255, blue: 218/255, alpha: 1)
         myActivityIndicator.center = view.center
         myActivityIndicator.hidesWhenStopped = true
         view.addSubview(myActivityIndicator)
@@ -128,6 +129,17 @@ class PhotoReorderViewController: UIViewController {
             return
         }
         else{
+            let asset = AVAsset(url: selectedAudio as URL)
+            let assetDuration = Int(CMTimeGetSeconds(asset.duration))
+            let imagesAllowed = assetDuration/2 //fps
+            if(imagesAllowed<userImages.count*2){
+                let alert = UIAlertController(title: "Alert!",message: "You can only select \(imagesAllowed) images for this audio. You have selected \(userImages.count)",preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
+                    alert.dismiss(animated: true, completion: nil)}))
+                present(alert, animated: true, completion: nil)
+                return
+
+            }
             audioPlayer.stop()
             
             myActivityIndicator.startAnimating()
@@ -284,7 +296,9 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
             
             let trackID = indexPath.row
             let path: String! = Bundle.main.resourcePath?.appending("/\(trackID).mp3")
+            
             let mp3URL = NSURL(fileURLWithPath: path)
+            let asset = AVURLAsset(url: mp3URL as URL)
             selectedAudio = mp3URL
             let cell = audioCollectionView.cellForItem(at: indexPath) as! AudioCollectionViewCell
             
@@ -341,18 +355,24 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
     }
     
     func flowLayoutInitialization(){
-        let layout = self.selectedImagesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        let layout1 = self.selectedImagesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         
-        layout?.minimumInteritemSpacing = 1
-        layout?.minimumLineSpacing = 1
+        layout1?.minimumInteritemSpacing = 1
+        layout1?.minimumLineSpacing = 1
+        let layout2 = self.audioCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        layout2?.minimumInteritemSpacing = 0
         
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if collectionView == audioCollectionView{
-        return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        return UIEdgeInsets.zero
         }
-        return UIEdgeInsets(top: 1, left: 2, bottom: 30, right: 2)
+        else{
+            
+            return UIEdgeInsets(top: 1, left: 2, bottom: 130, right: 2)
+    
+        }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
@@ -363,7 +383,7 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
     
         }
         else{
-            return CGSize(width: 120, height: 120)
+            return CGSize(width: 100, height: 100)
         }
     }
 }

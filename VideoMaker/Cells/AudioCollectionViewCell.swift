@@ -22,8 +22,8 @@ class AudioCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.audioImage.image = UIImage(named: "MusicSymbol")
-        self.audioImage.layer.cornerRadius = CGFloat(cellImageSize/2)
+        
+//        self.audioImage.layer.cornerRadius = CGFloat(cellImageSize/2)
         self.audioImage.clipsToBounds = true
         durationLabel.isHidden = true
 
