@@ -81,7 +81,7 @@ class PhotoReorderViewController: UIViewController {
         
         myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
         myActivityIndicator.frame = CGRect(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2, width: 50, height: 50)
-//        myActivityIndicator.color = UIColor(red: 150/255, green: 222/255, blue: 218/255, alpha: 1)
+
         myActivityIndicator.layer.cornerRadius = 5
         myActivityIndicator.center = view.center
         myActivityIndicator.hidesWhenStopped = true
@@ -95,8 +95,6 @@ class PhotoReorderViewController: UIViewController {
         
         
         self.navigationItem.rightBarButtonItem = newButton
-//        let newBackButton = UIBarButtonItem(title: "Home", style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
-//        self.navigationItem.leftBarButtonItem = newBackButton
 
         
     }
@@ -116,13 +114,6 @@ class PhotoReorderViewController: UIViewController {
         flowLayoutInitialization()
     }
     
-//    @IBAction func goBack(_ sender: Any) {
-//      
-//        let galleryVC = self.navigationController?.viewControllers[1] as! PhotoSelectionViewController
-//        galleryVC.selectedImages.removeAll()
-//        galleryVC.selectedImages = []
-//        self.navigationController?.popToViewController(galleryVC, animated: true)
-//    }
     
     
     func proceed() {
@@ -155,13 +146,11 @@ class PhotoReorderViewController: UIViewController {
 //            self.view.addSubview(myActivityIndicator)
             myActivityIndicator.alpha = 1
             view.layoutIfNeeded()
+//            self.navigationItem.rightBarButtonItem?.isEnabled = false
+//            self.navigationItem.leftBarButtonItem?.isEnabled = false
+            UIApplication.shared.beginIgnoringInteractionEvents()
             myActivityIndicator.startAnimating()
-            self.navigationItem.rightBarButtonItem?.isEnabled = false
-            self.navigationItem.leftBarButtonItem?.isEnabled = false
             imageAnimator.render(completion: createMerger)
-//          let newController = self.storyboard?.instantiateViewController(withIdentifier: "playerVC") as! CompositeVideoViewController
-//          newController.finalVideoURL = videoURL as URL
-//          navigationController?.pushViewController(newController, animated: true)
         }
     }
 
@@ -175,33 +164,22 @@ class PhotoReorderViewController: UIViewController {
                 
                 
                 DispatchQueue.main.async {
+                    UIApplication.shared.endIgnoringInteractionEvents()
                     self.myActivityIndicator.stopAnimating()
+                    
                     let newController = self.storyboard?.instantiateViewController(withIdentifier: "playerVC") as! CompositeVideoViewController
-                                    newController.finalVideoURL = mergedVideoUrl!
+                    newController.finalVideoURL = mergedVideoUrl!
                     if(self.cameraUsed){
                         newController.cameraUsed = true
                     }
                     self.navigationController?.pushViewController(newController, animated: true)
 
                     }
-                    
             }
         })
-
-
     }
-
-    
-   
-//        let newController = self.storyboard?.instantiateViewController(withIdentifier: "") as!
-//        newController.userImages = self.sample
-//        navigationController?.pushViewController(newController, animated: true)
     
     
-    
-    
-       
-       
     func handleLongGesture(gesture: UILongPressGestureRecognizer){
         switch(gesture.state) {
     
@@ -217,9 +195,6 @@ class PhotoReorderViewController: UIViewController {
         default:
             selectedImagesCollectionView.cancelInteractiveMovement()
         }
-//        selectedImagesCollectionView.reloadData()
-
-    
     }
 }
 
@@ -311,9 +286,6 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
                 cell.isPlaying = false
             }
             else{
-//                if let selectedItems = audioCollectionView.indexPathsForSelectedItems{
-//                    
-//                }
                 do
                 {
                     //            if() {

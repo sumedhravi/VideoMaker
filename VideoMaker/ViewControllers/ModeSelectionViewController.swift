@@ -14,13 +14,8 @@ class ModeSelectionViewController: UIViewController {
     
     var cameraSelectedImages : [UIImage] = []
     var gradientLayer: CAGradientLayer!
-//    var navGradientLayer: CAGradientLayer!
     
 
-    
-
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         createGradientLayer()
@@ -42,26 +37,6 @@ class ModeSelectionViewController: UIViewController {
 
     }
     
-//    override func viewDidLayoutSubviews() {
-//        
-//        super.viewDidLayoutSubviews()
-//        self.gradientLayer.frame = self.view.bounds
-//        self.gradientLayer.position = CGPoint(x: self.view.bounds.midX, y: self.view.bounds.midY)
-//
-//    }
-    
-
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
-////        self.textLabelLeadConstraint.constant = 0
-////        self.textLabelTrailConstraint.constant = 0
-////        
-////        self.buttonViewLeadConstraint.constant = 30
-////        self.buttonViewTrailingConstraint.constant = 30
-////        self.view.layoutIfNeeded()
-//
-//    }
     
     
 
@@ -70,7 +45,7 @@ class ModeSelectionViewController: UIViewController {
 //        createCameraVC()
         let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
         switch authStatus {
-        case .authorized: createCameraVC() // Do your stuff here i.e. callCameraMethod()
+        case .authorized: createCameraVC()
         case .denied:
             DispatchQueue.main.async {
                 print("User access denied")

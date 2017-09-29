@@ -45,7 +45,7 @@ class AlbumViewController: UIViewController {
             
             if object is PHAsset{
                 let asset = object as! PHAsset
-                print("Inside  If object is PHAsset, This is number 1")
+                
                 
                 let imageSize = CGSize(width: asset.pixelWidth,
                                        height: asset.pixelHeight)
@@ -67,7 +67,7 @@ class AlbumViewController: UIViewController {
                                           resultHandler: {
                                             (image, info) -> Void in
                                             self.videoImageList.append(image!)
-                                            print("enum for image, This is number 2")
+                                            
                                             
                                             
                 })
@@ -141,9 +141,6 @@ extension AlbumViewController : UICollectionViewDataSource, UICollectionViewDele
             
         })
 
-        
-        
-        
     }
     
 }

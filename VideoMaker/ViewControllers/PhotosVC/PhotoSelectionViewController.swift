@@ -32,7 +32,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         }
         
         for path in indexPathsSelected!{
-            self.imageManagerObject.requestImage(for: self.fetchResults.object(at: path.item), targetSize:CGSize(width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height/2 ) , contentMode: .aspectFit , options: self.requestOptions, resultHandler: { image, error in
+            self.imageManagerObject?.requestImage(for: self.fetchResults.object(at: path.item), targetSize:CGSize(width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height/2 ) , contentMode: .aspectFit , options: self.requestOptions, resultHandler: { image, error in
                 
                 self.selectedImages.append(image!)
 //                self.pushController()
@@ -41,13 +41,6 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         }
         self.pushController()
         
-//        totalSelectedImages = selectedImages + cameraImages
-//        let newController = self.storyboard?.instantiateViewController(withIdentifier: "photoReorderVC") as! PhotoReorderViewController
-//        newController.userImages = totalSelectedImages
-//        if(self.cameraUsed){
-//            newController.cameraUsed = true
-//        }
-//        navigationController?.pushViewController(newController, animated: true)
         
     }
     
@@ -58,7 +51,6 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     @IBOutlet weak var cameraView: UIView!
     
     var selectedImages: [UIImage]=[]
-    //    var hasReturnedFromVideo : Bool = false
     var cameraImages: [UIImage] = []
     var totalSelectedImages: [UIImage] = []
     var hasReturnedFromReordering: Bool = false
@@ -69,7 +61,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     
     let requestOptions = PHImageRequestOptions()
-    var imageManagerObject = PHImageManager.init()
+    var imageManagerObject : PHImageManager?
     var fetchResults = PHFetchResult<PHAsset> ()
     
     override func viewDidLoad() {
@@ -322,7 +314,7 @@ extension PhotoSelectionViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == galleryView{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellName, for: indexPath) as! GalleryCollectionViewCell
-            imageManagerObject.requestImage(for: fetchResults.object(at: indexPath.row), targetSize:CGSize(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height/3) , contentMode: .aspectFit , options: requestOptions, resultHandler: {image, error in
+            imageManagerObject?.requestImage(for: fetchResults.object(at: indexPath.row), targetSize:CGSize(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height/3) , contentMode: .aspectFit , options: requestOptions, resultHandler: {image, error in
                 
                     cell.imageView.image = image
                     cell.imageView.contentMode = .scaleAspectFill
@@ -413,7 +405,15 @@ extension PhotoSelectionViewController : UICollectionViewDelegateFlowLayout{
             return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         }
         else {
-            return UIEdgeInsets(top: 1, left: 2, bottom: 90, right: 2)
+            if cameraUsed && cameraImages.count>0{
+                galleryView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
+                return UIEdgeInsets(top: 1, left: 2, bottom: 90, right: 2)
+            }
+            else{
+                galleryView.scrollIndicatorInsets = UIEdgeInsets.zero
+                return UIEdgeInsets(top: 1, left: 2, bottom: 0, right: 2)
+                
+            }
         }
     }
     

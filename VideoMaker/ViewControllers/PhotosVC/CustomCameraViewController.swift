@@ -27,8 +27,7 @@ class CustomCameraViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(rotated)
-//            , name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+
         // Do any additional setup after loading the view.
     }
 
@@ -220,7 +219,7 @@ class CustomCameraViewController: UIViewController {
                     self.buttonConstraintToCollectionView.constant = 20
                     self.switchButtonConstraint.constant = 35
                     self.view.layoutIfNeeded()
-                    //                    self.isViewHidden = false
+//                    self.isViewHidden = false
                     
                 }
             }
@@ -358,14 +357,6 @@ extension CustomCameraViewController{
                 
                 self.doneButton.isHidden = false
                 
-//                PHPhotoLibrary.shared().performChanges({
-//                    PHAssetChangeRequest.creationRequestForAsset(from: image!)
-//                }, completionHandler: { (success, error) in
-//                    if !success {
-//                        print("Could not save video to photo library:", error!)
-//                    }
-//                    
-//                })
                 
             }
         }

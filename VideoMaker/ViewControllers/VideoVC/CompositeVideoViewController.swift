@@ -72,33 +72,7 @@ class CompositeVideoViewController: AVPlayerViewController {
     func saveToLibrary(){
         playCount = 1
         self.navigationItem.rightBarButtonItem?.isEnabled = false
-//        PHPhotoLibrary.requestAuthorization { status in
-//            guard status == .authorized else { return }
-//            
-//            PHPhotoLibrary.shared().performChanges({
-//                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: self.finalVideoURL as URL)
-//                
-//            }) { success, error in
-//                if !success {
-//                    print("Could not save video to photo library:", error!)
-//                }
-//                else{
-//                        let alert = UIAlertController(title: "",message: "Saved",preferredStyle: .alert)
-//                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
-//                            alert.dismiss(animated: true, completion: nil)}))
-//                        self.present(alert, animated: true, completion: nil)
-//                        self.navigationItem.rightBarButtonItem?.isEnabled = false
-//
-//                    }
-//            }
-//        }
         CustomAlbum.sharedInstance.save(url: self.finalVideoURL, completion: createAlertVC)
-//            let alert = UIAlertController(title: "",message: "Saved",preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
-//                                        alert.dismiss(animated: true, completion: nil)}))
-//                                    self.present(alert, animated: true, completion: nil)
-//                                    self.navigationItem.rightBarButtonItem?.isEnabled = false
-
         }
     
     
