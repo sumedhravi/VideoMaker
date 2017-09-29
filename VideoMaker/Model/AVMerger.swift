@@ -71,7 +71,6 @@ class AVMerger: NSObject {
         let imageLayer = CALayer()
         
         let watermarkImage = #imageLiteral(resourceName: "LaunchScreen")
-        
         imageLayer.contents = watermarkImage.cgImage
         imageLayer.masksToBounds = true
         imageLayer.frame = CGRect(x: 100, y: 0, width: 150, height: 150)
@@ -110,7 +109,7 @@ class AVMerger: NSObject {
         
         
         
-        //find video on this URl
+        
         
         var savePathUrl = URL(fileURLWithPath: "")
         let dateFormatter = DateFormatter()

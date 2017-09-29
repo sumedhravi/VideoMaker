@@ -121,7 +121,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = false
-        
+        setNavigationBar()
 
         if cameraImages.count > 0 && cameraUsed{
             cameraView.isHidden = false
@@ -141,7 +141,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         //            galleryView.reloadData()
         //            hasReturnedFromVideo = false
         //        }
-        setNavigationBar()
+        
 //        if cameraImages.count > 0 && cameraUsed{
 //            cameraView.isHidden = false
 //            
@@ -204,8 +204,13 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
     func initialize(){
         galleryView.dataSource = self
         galleryView.delegate = self
+        
         cameraImageCollection.dataSource = self
         cameraImageCollection.delegate = self
+        cameraImageCollection.layer.borderColor = UIColor(colorLiteralRed: 228/255, green: 228/255, blue: 228/255, alpha: 1).cgColor
+        cameraImageCollection.layer.borderWidth = 2
+
+        
         galleryView.allowsSelection = true
         galleryView.allowsMultipleSelection = true
         self.cameraImageCollection.register(UINib(nibName: "CameraCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CameraCollectionViewCell")
@@ -226,7 +231,7 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
         let navGradientLayer = CAGradientLayer()
         self.navigationController?.isNavigationBarHidden = false
         self.navigationController?.navigationBar.tintColor = UIColor.white
-
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         navGradientLayer.frame = CGRect(x: 0, y: -20, width: UIApplication.shared.statusBarFrame.width, height: UIApplication.shared.statusBarFrame.height + (navigationController?.navigationBar.frame.height)!)
         
         navGradientLayer.colors = [UIColor(colorLiteralRed: 80/255, green: 201/255, blue: 195/255, alpha: 100 ).cgColor, UIColor(colorLiteralRed: 150/255, green: 222/255, blue: 218/255, alpha: 100).cgColor]
@@ -289,6 +294,17 @@ class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDel
 //            
 //        }
     }
+    func buttonClicked(sender:UIButton){
+        let index = sender.tag
+        cameraImages.remove(at: index)
+        cameraImageCollection.reloadData()
+        if cameraImages.count==0 {
+            self.cameraView.isHidden = true
+            
+        }
+    }
+
+
 }
 
 
@@ -336,6 +352,8 @@ extension PhotoSelectionViewController : UICollectionViewDataSource{
     
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CameraCollectionViewCell", for: indexPath) as! CameraCollectionViewCell
             cell.cellImage.image = cameraImages[indexPath.item]
+            cell.deleteButton.tag = indexPath.item
+            cell.deleteButton.addTarget(self, action: #selector(buttonClicked), for: UIControlEvents.touchUpInside)
             return cell
 
         }
@@ -385,14 +403,14 @@ extension PhotoSelectionViewController : UICollectionViewDelegateFlowLayout{
             return CGSize(width: (UIScreen.main.bounds.width-6)/3 , height: (UIScreen.main.bounds.width-6)/3)
         }
         else{
-            return CGSize(width: 70, height: 70)
+            return CGSize(width: 60, height: 60)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if collectionView == cameraImageCollection{
             
-            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         }
         else {
             return UIEdgeInsets(top: 1, left: 2, bottom: 90, right: 2)

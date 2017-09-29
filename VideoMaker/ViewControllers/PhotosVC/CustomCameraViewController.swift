@@ -12,6 +12,10 @@ import Photos
 
 class CustomCameraViewController: UIViewController {
 
+    override var prefersStatusBarHidden : Bool {
+        return true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageCollection.register(UINib(nibName: "CameraCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CameraCollectionViewCell")
@@ -21,6 +25,8 @@ class CustomCameraViewController: UIViewController {
 //        captureButton.layer.cornerRadius = 30
         captureButton.clipsToBounds = true
         self.navigationController?.isNavigationBarHidden = true
+        
+        
 //        NotificationCenter.default.addObserver(self, selector: #selector(rotated)
 //            , name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
         // Do any additional setup after loading the view.
@@ -46,15 +52,16 @@ class CustomCameraViewController: UIViewController {
 
     
     override func viewDidAppear(_ animated: Bool) {
-        self.buttonConstraint.constant = 50
-        self.buttonConstraintToCollectionView.constant = 50
-        self.navigationController?.isNavigationBarHidden = true
+        
+        
         imageCollection.reloadData()
     }
    
     override func viewWillAppear(_ animated: Bool) {
-        self.buttonConstraint.constant = 50
-        self.buttonConstraintToCollectionView.constant = 50
+        self.buttonConstraint.constant = 20
+        self.buttonConstraintToCollectionView.constant = 20
+        self.switchButtonConstraint.constant = 35
+        
         self.navigationController?.isNavigationBarHidden = true
 
     }
@@ -83,6 +90,7 @@ class CustomCameraViewController: UIViewController {
     
     @IBOutlet weak var doneButton: UIButton!
     
+    @IBOutlet weak var switchButtonConstraint: NSLayoutConstraint!
     
     @IBAction func doneButton(_ sender: Any) {
         for image in capturedImages{
@@ -120,14 +128,14 @@ class CustomCameraViewController: UIViewController {
             return
         }
         let alert = UIAlertController(title: "Alert!",message: "Are you sure you want to discard these images?",preferredStyle:.alert)
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default , handler: { (alertAction) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
         alert.addAction(UIAlertAction(title: "Discard", style: UIAlertActionStyle.destructive, handler: {(alertAction: UIAlertAction!) in
             alert.dismiss(animated: true, completion: nil)
             self.dismiss(animated: true, completion: nil)
         }))
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default , handler: { (alertAction) in
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        
+
         present(alert, animated: true, completion: nil)
         return
     }
@@ -154,11 +162,11 @@ class CustomCameraViewController: UIViewController {
     
     @IBOutlet weak var imageCollection: UICollectionView!
 
-    
     @IBOutlet weak var buttonConstraintToCollectionView: NSLayoutConstraint!
 
-    
     @IBOutlet weak var buttonConstraint: NSLayoutConstraint!
+    
+    
 
 
     var connection: AVCaptureConnection?
@@ -197,6 +205,34 @@ class CustomCameraViewController: UIViewController {
         }
 
     }
+    
+    func buttonClicked(sender: UIButton){
+        let index = sender.tag
+        let alert = UIAlertController(title: "Delete selected image?",message: "",preferredStyle:.alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: {(alertAction: UIAlertAction!) in
+            alert.dismiss(animated: true, completion: nil)
+            self.capturedImages.remove(at: index)
+            self.imageCollection.reloadData()
+            if self.capturedImages.count == 0{
+                self.doneButton.isHidden = true
+                UIView.animate(withDuration: 0.5) {
+                    self.buttonConstraint.constant = 20
+                    self.buttonConstraintToCollectionView.constant = 20
+                    self.switchButtonConstraint.constant = 35
+                    self.view.layoutIfNeeded()
+                    //                    self.isViewHidden = false
+                    
+                }
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
+            alert.dismiss(animated: true, completion: nil)
+            
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+
     
     /*
     // MARK: - Navigation
@@ -338,6 +374,7 @@ extension CustomCameraViewController{
             UIView.animate(withDuration: 0.5) {
                 self.buttonConstraint.constant = 100
                 self.buttonConstraintToCollectionView.constant = 15
+                self.switchButtonConstraint.constant = 115
                 self.view.layoutIfNeeded()
                 //                    self.isViewHidden = false
                 
@@ -435,43 +472,24 @@ extension CustomCameraViewController: UICollectionViewDataSource,UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CameraCollectionViewCell", for: indexPath) as! CameraCollectionViewCell
         cell.cellImage.image = capturedImages[indexPath.item]
+        cell.deleteButton.tag = indexPath.item
+        cell.deleteButton.addTarget(self, action: #selector(buttonClicked), for: UIControlEvents.touchUpInside)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         
-        return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        return UIEdgeInsets(top: 10, left: 5, bottom: 5, right: 5)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: 75, height: 75)
+        return CGSize(width: 70, height: 70)
         
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Delete selected image?",message: "",preferredStyle:.alert)
-        alert.addAction(UIAlertAction(title: "Delete", style: UIAlertActionStyle.destructive, handler: {(alertAction: UIAlertAction!) in
-            alert.dismiss(animated: true, completion: nil)
-            self.capturedImages.remove(at: indexPath.item)
-            self.imageCollection.reloadData()
-            if self.capturedImages.count == 0{
-                self.doneButton.isHidden = true
-                UIView.animate(withDuration: 0.5) {
-                    self.buttonConstraint.constant = 50
-                    self.buttonConstraintToCollectionView.constant = 50
-                    self.view.layoutIfNeeded()
-//                    self.isViewHidden = false
-                    
-                }
-            }
-        }))
-
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
-            alert.dismiss(animated: true, completion: nil)
-            
-        }))
-        present(alert, animated: true, completion: nil)
+        print("here")
     }
     
 }

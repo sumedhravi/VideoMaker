@@ -10,41 +10,43 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CameraCollectionViewCell" id="gTV-IL-0wX" customClass="CameraCollectionViewCell" customModule="VideoMaker" customModuleProvider="target">
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CameraCollectionViewCell" id="gTV-IL-0wX" customClass="CameraCollectionViewCell" customModule="VideoMaker" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="85" height="85"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="85" height="85"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7HS-hW-NUr">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7HS-hW-NUr">
                         <rect key="frame" x="0.0" y="0.0" width="85" height="85"/>
                     </imageView>
-                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Cancel" translatesAutoresizingMaskIntoConstraints="NO" id="wZP-We-6LU">
-                        <rect key="frame" x="65" y="0.0" width="20" height="20"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uNL-JN-bgK">
+                        <rect key="frame" x="68" y="-3" width="20" height="20"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="20" id="KRc-XB-mk8"/>
-                            <constraint firstAttribute="width" constant="20" id="xpR-mT-vnj"/>
+                            <constraint firstAttribute="height" constant="20" id="60L-eb-gg9"/>
+                            <constraint firstAttribute="width" constant="20" id="LfW-G3-Wg6"/>
                         </constraints>
-                    </imageView>
+                        <state key="normal" image="Delete"/>
+                    </button>
                 </subviews>
             </view>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="7HS-hW-NUr" secondAttribute="trailing" id="8wE-zS-1Uo"/>
                 <constraint firstItem="7HS-hW-NUr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="BhS-Xy-rYw"/>
-                <constraint firstItem="wZP-We-6LU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="TGt-y4-Uhq"/>
                 <constraint firstAttribute="bottom" secondItem="7HS-hW-NUr" secondAttribute="bottom" id="YyN-wc-YUI"/>
-                <constraint firstAttribute="trailing" secondItem="wZP-We-6LU" secondAttribute="trailing" id="qgR-QH-l84"/>
+                <constraint firstItem="uNL-JN-bgK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="-3" id="ecN-9y-rZD"/>
+                <constraint firstAttribute="trailing" secondItem="uNL-JN-bgK" secondAttribute="trailing" constant="-3" id="fLB-30-Mtz"/>
                 <constraint firstItem="7HS-hW-NUr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="yod-tE-1Q4"/>
             </constraints>
             <connections>
                 <outlet property="cellImage" destination="7HS-hW-NUr" id="NHb-xS-0Iq"/>
+                <outlet property="deleteButton" destination="uNL-JN-bgK" id="3nA-zu-eMt"/>
             </connections>
             <point key="canvasLocation" x="24.5" y="51.5"/>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="Cancel" width="17" height="17"/>
+        <image name="Delete" width="17" height="17"/>
     </resources>
 </document>

@@ -174,8 +174,8 @@ class ModeSelectionViewController: UIViewController {
     
     func createCameraVC(){
         
-            let newController = self.storyboard?.instantiateViewController(withIdentifier: "CustomCameraViewController") as! CustomCameraViewController
-            let cameraNavVC = UINavigationController(rootViewController: newController)
+        let newController = self.storyboard?.instantiateViewController(withIdentifier: "CustomCameraViewController") as! CustomCameraViewController
+        let cameraNavVC = UINavigationController(rootViewController: newController)
             present(cameraNavVC,animated: true)
 
         

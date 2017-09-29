@@ -128,6 +128,8 @@ extension AlbumViewController : UICollectionViewDataSource, UICollectionViewDele
             if let video = avAsset as? AVURLAsset {
                 videoURL = video.url
                  let playerViewController = AVPlayerViewController()
+               
+
                 self.player = AVPlayer(url: videoURL)
                 playerViewController.player = self.player
                 self.present(playerViewController, animated: true) {

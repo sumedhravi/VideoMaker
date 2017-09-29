@@ -11,12 +11,13 @@ import UIKit
 class CameraCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var cellImage: UIImageView!
+    
+    @IBOutlet weak var deleteButton: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.cellImage.contentMode = .scaleAspectFill
-        
+       // self.contentView.addSubview(deleteButton)
     }
 
-    @IBOutlet weak var deleteButton: UIButton!
+    
 }

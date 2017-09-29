@@ -102,6 +102,8 @@ class PhotoReorderViewController: UIViewController {
     }
     
     func configureCollectionView(){
+        audioCollectionView.layer.borderColor = UIColor(colorLiteralRed: 228/255, green: 228/255, blue: 228/255, alpha: 1).cgColor
+        audioCollectionView.layer.borderWidth = 2
         selectedImagesCollectionView.dataSource = self
         selectedImagesCollectionView.delegate = self
         audioCollectionView.dataSource = self
@@ -133,9 +135,13 @@ class PhotoReorderViewController: UIViewController {
             return
         }
         else{
+            let settings = VideoComposer.RenderSettings()
+            let imageAnimator = VideoComposer.ImageAnimator(renderSettings:settings, imageArray: userImages)
+            videoURL = settings.outputURL
+
             let asset = AVAsset(url: selectedAudio)
-            let assetDuration = Int(CMTimeGetSeconds(asset.duration))
-            let imagesAllowed = assetDuration/2 //fps
+            let assetDuration = CMTimeGetSeconds(asset.duration)
+            let imagesAllowed = Int(assetDuration*(settings.fps)) //fps
             if(imagesAllowed<userImages.count){
                 let alert = UIAlertController(title: "Alert!",message: "You can only select \(imagesAllowed) images for this audio. You have selected \(userImages.count)",preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
@@ -150,10 +156,8 @@ class PhotoReorderViewController: UIViewController {
             myActivityIndicator.alpha = 1
             view.layoutIfNeeded()
             myActivityIndicator.startAnimating()
-            
-            let settings = VideoComposer.RenderSettings()
-            let imageAnimator = VideoComposer.ImageAnimator(renderSettings:settings, imageArray: userImages)
-            videoURL = settings.outputURL
+            self.navigationItem.rightBarButtonItem?.isEnabled = false
+            self.navigationItem.leftBarButtonItem?.isEnabled = false
             imageAnimator.render(completion: createMerger)
 //          let newController = self.storyboard?.instantiateViewController(withIdentifier: "playerVC") as! CompositeVideoViewController
 //          newController.finalVideoURL = videoURL as URL
@@ -169,32 +173,21 @@ class PhotoReorderViewController: UIViewController {
             
             if mergedVideoUrl != nil {
                 
-//                        PHPhotoLibrary.requestAuthorization { status in
-//                            guard status == .authorized else { return }
-//                
-//                            PHPhotoLibrary.shared().performChanges({
-//                                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: mergedVideoUrl as! URL)
-//                            }) { success, error in
                 
-                                DispatchQueue.main.async {
-                                    self.myActivityIndicator.stopAnimating()
-                                    let newController = self.storyboard?.instantiateViewController(withIdentifier: "playerVC") as! CompositeVideoViewController
+                DispatchQueue.main.async {
+                    self.myActivityIndicator.stopAnimating()
+                    let newController = self.storyboard?.instantiateViewController(withIdentifier: "playerVC") as! CompositeVideoViewController
                                     newController.finalVideoURL = mergedVideoUrl!
-                                    if(self.cameraUsed){
-                                        newController.cameraUsed = true
-                                    }
-                                    self.navigationController?.pushViewController(newController, animated: true)
+                    if(self.cameraUsed){
+                        newController.cameraUsed = true
+                    }
+                    self.navigationController?.pushViewController(newController, animated: true)
 
-                                }
+                    }
                     
-//                                if !success {
-//                                    print("Could not save video to photo library:", error!)
-//                                }
-//                            }
-//                        }
             }
         })
-//        completion()
+
 
     }
 
@@ -391,7 +384,7 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
     
         }
         else{
-            return CGSize(width: 100, height: 100)
+            return CGSize(width: 100, height: 90)
         }
     }
 }
