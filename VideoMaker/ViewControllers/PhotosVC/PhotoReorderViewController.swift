@@ -142,12 +142,8 @@ class PhotoReorderViewController: UIViewController {
 
             }
             audioPlayer.stop()
-//            self.view.alpha = 0.5
-//            self.view.addSubview(myActivityIndicator)
-            myActivityIndicator.alpha = 1
             view.layoutIfNeeded()
-//            self.navigationItem.rightBarButtonItem?.isEnabled = false
-//            self.navigationItem.leftBarButtonItem?.isEnabled = false
+
             UIApplication.shared.beginIgnoringInteractionEvents()
             myActivityIndicator.startAnimating()
             imageAnimator.render(completion: createMerger)

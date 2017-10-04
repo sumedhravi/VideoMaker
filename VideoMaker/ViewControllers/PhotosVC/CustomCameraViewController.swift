@@ -187,7 +187,7 @@ class CustomCameraViewController: UIViewController {
         guard let device = cameraDevice else { return }
         if sender.state == .changed {
             
-            let maxZoomFactor = device.activeFormat.videoMaxZoomFactor/20
+            let maxZoomFactor = device.activeFormat.videoMaxZoomFactor/4
             let pinchVelocityDividerFactor: CGFloat = 5.0
             
             do {
@@ -327,7 +327,7 @@ extension CustomCameraViewController{
             self.videoPreviewLayer = videoLayer
             
             
-//            captureButton.backgroundColor = UIColor.red
+
             self.videoCaptureView.layer.addSublayer(captureButton.layer)
             self.videoCaptureView.addSubview(menuView)
             self.videoCaptureView.addSubview(switchButton)

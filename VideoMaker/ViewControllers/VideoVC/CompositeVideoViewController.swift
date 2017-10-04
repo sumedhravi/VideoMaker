@@ -17,11 +17,9 @@ class CompositeVideoViewController: AVPlayerViewController {
     var cameraUsed = false
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let videoPlayer = AVPlayer(url: finalVideoURL)
-//        let playerViewController = AVPlayerViewController()
-//        playerViewController.player = videoPlayer
+        let videoPlayer = AVPlayer(url: finalVideoURL)
         let _ = CustomAlbum.sharedInstance
-        self.player = AVPlayer(url: finalVideoURL)
+        self.player = videoPlayer
         NotificationCenter.default.addObserver(self , selector: #selector(handleNotification), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
 //        self.present(playerViewController, animated: true)
 //        do {
