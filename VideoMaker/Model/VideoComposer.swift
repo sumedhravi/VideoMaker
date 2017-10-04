@@ -20,7 +20,7 @@ class VideoComposer : NSObject {
         
         var width: CGFloat = 1920  //1280
         var height: CGFloat = 1280 //720
-        var fps = 0.5   // 2 frames per second
+        var fps = 0.5   // 2 seconds per frame
         var avCodecKey = AVVideoCodecH264
         var videoFilename = "SampleVideo"
         var videoFilenameExt = "mp4"

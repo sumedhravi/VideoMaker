@@ -53,7 +53,7 @@ class AlbumViewController: UIViewController {
                 let duration = asset.duration
 
                 self.videoDuration.append(self.generateDuration(duration: duration))
-                print(duration)
+                
                 
                 
                 let options = PHImageRequestOptions()

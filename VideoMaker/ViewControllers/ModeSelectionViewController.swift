@@ -42,7 +42,7 @@ class ModeSelectionViewController: UIViewController {
 
     @IBAction func cameraButton(_ sender: Any) {
         
-//        createCameraVC()
+
         let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
         switch authStatus {
         case .authorized: createCameraVC()
@@ -164,7 +164,7 @@ class ModeSelectionViewController: UIViewController {
         gradientLayer.colors = [UIColor(colorLiteralRed: 80/255, green: 201/255, blue: 195/255, alpha: 100 ).cgColor, UIColor(colorLiteralRed: 150/255, green: 222/255, blue: 218/255, alpha: 100).cgColor ]
         self.view.layer.insertSublayer(gradientLayer, at: 0)
 
-//        self.view.layer.addSublayer(gradientLayer)
+
     }
     
     

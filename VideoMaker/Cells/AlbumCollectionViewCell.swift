@@ -22,6 +22,7 @@ class AlbumCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         self.playImage.alpha = 0.5
         // Initialization code
+        self.videoImage.contentMode = .scaleAspectFit
     }
 
 }
