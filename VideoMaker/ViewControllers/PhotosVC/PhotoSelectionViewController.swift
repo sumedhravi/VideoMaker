@@ -9,13 +9,14 @@
 import UIKit
 import Photos
 
-class PhotoSelectionViewController: UIViewController {
-
+class PhotoSelectionViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     @IBOutlet weak var galleryView: UICollectionView!
     
     @IBAction func doneButton(_ sender: UIBarButtonItem) {
+        
         let indexPathsSelected = self.galleryView.indexPathsForSelectedItems
-        guard (!(indexPathsSelected?.isEmpty)!) else{
+        guard (!cameraImages.isEmpty || !(indexPathsSelected?.isEmpty)!) else{
             let alert = UIAlertController(title: "ALERT",message: "No Images Selected",preferredStyle: .alert)
             present(alert, animated: true, completion: nil)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
@@ -23,141 +24,331 @@ class PhotoSelectionViewController: UIViewController {
                 alert.dismiss(animated: true, completion:nil) }))
             return
         }
-        var selectedImages : [UIImage]=[]
-        for path in indexPathsSelected!{
-            selectedImages.append(userImages[path.item])
+        
+        requestOptions.isSynchronous = true
+        requestOptions.deliveryMode = .highQualityFormat
+        DispatchQueue.main.async {
+            self.myActivityIndicator.startAnimating()
         }
-
-        let newController = self.storyboard?.instantiateViewController(withIdentifier: "photoReorderVC") as! PhotoReorderViewController
-        newController.userImages = selectedImages
-        navigationController?.pushViewController(newController, animated: true)
-
+        
+        for path in indexPathsSelected!{
+            self.imageManagerObject?.requestImage(for: self.fetchResults.object(at: path.item), targetSize:CGSize(width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height/2 ) , contentMode: .aspectFit , options: self.requestOptions, resultHandler: { image, error in
+                
+                self.selectedImages.append(image!)
+//                self.pushController()
+            })
+            
+        }
+        self.pushController()
+        
+        
     }
     
-    var hasReturned : Bool = false
-    var userImages : [UIImage] = []
     
+    
+    @IBOutlet weak var cameraImageCollection: UICollectionView!
+    
+    @IBOutlet weak var cameraView: UIView!
+    
+    var selectedImages: [UIImage]=[]
+    var cameraImages: [UIImage] = []
+    var totalSelectedImages: [UIImage] = []
+    var hasReturnedFromReordering: Bool = false
+    var cameraUsed = false
+    var userImages: [UIImage] = []
+    var permissionGranted = false
     let cellName = "GalleryCollectionViewCell"
+    let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+    
+    let requestOptions = PHImageRequestOptions()
+    var imageManagerObject : PHImageManager?
+    var fetchResults = PHFetchResult<PHAsset> ()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initialize()
+        PHPhotoLibrary.requestAuthorization { (status) in
+            switch status{
+            case .authorized :
+                print("User access authorized")
+                self.imageManagerObject = PHImageManager.default()
+                if !self.permissionGranted{
+                    self.permissionGranted = true
+                    self.getImages()
+                }
+                case .denied:
+                DispatchQueue.main.async {
+                    print("User access denied")
+                    let alert = UIAlertController(title: "Alert",message: "Permission to access Photos needs to be granted to select images",preferredStyle: .alert)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
+                        (alertAction: UIAlertAction!) in
+                        alert.dismiss(animated: true, completion: nil)
+                        UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)! as URL)
+                        
+                    }))
+                }
+                
+            case .restricted:
+                print("User access is restricted")
+                
+            case .notDetermined:
+                print("User access is not determined")
+                
+            }
+        }
         
-    
-//        getImages()
-//        getImages()
-//        getImages()
-//        getImages()
-//        getImages()
-//        getImages()
-//        getImages()
         
-    
+        
+        
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
-        if hasReturned{
-            galleryView.reloadData()
-        }
-        
-    PHPhotoLibrary.requestAuthorization { (status) in
-        switch status{
-        case .authorized :
-            DispatchQueue.main.async {
-            self.getImages()
-            self.galleryView.reloadData()
-            print("User access authorized")
-            }
-        case .denied:
-            DispatchQueue.main.async {
-                print("User access denied")
-            let alert = UIAlertController(title: "Alert",message: "Permission to access Photos needs to be granted to select images",preferredStyle: .alert)
-            self.present(alert, animated: true, completion: nil)
+        self.navigationController?.isNavigationBarHidden = false
+        setNavigationBar()
 
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
-                (alertAction: UIAlertAction!) in
-                                    alert.dismiss(animated: true, completion: nil)
-                    UIApplication.shared.openURL(NSURL(string: UIApplicationOpenSettingsURLString)! as URL)
-            
-                 }))
-            }
-            
-        case .restricted:
-             print("User access is restricted")
-            
-        case .notDetermined:
-             print("User access is not determined")
+        if cameraImages.count > 0 && cameraUsed{
+            cameraView.isHidden = false
             
         }
+        else{
+            cameraView.isHidden = true
         }
     }
+    override func viewDidAppear(_ animated: Bool) {
+        //        if !selectedImages.isEmpty {
+        //                selectedImages.removeAll()
+        //                selectedImages = []
+        //        }
+        
+        //        if hasReturnedFromVideo{
+        //            galleryView.reloadData()
+        //            hasReturnedFromVideo = false
+        //        }
+        
+//        if cameraImages.count > 0 && cameraUsed{
+//            cameraView.isHidden = false
+//            
+//        }
+//        else{
+//            cameraView.isHidden = true
+//        }
+        //    PHPhotoLibrary.requestAuthorization { (status) in
+        //        switch status{
+        //        case .authorized :
+        //            DispatchQueue.main.sync {
+        //                print("User access authorized")
+        //
+        //                if !self.permissionGranted{
+        //                    self.permissionGranted = true
+        //                    self.getImages()
+        //                    self.galleryView.reloadData()
+        //                }
+        ////            self.myActivityIndicator.stopAnimating()
+        //            }
+        //        case .denied:
+        //            DispatchQueue.main.async {
+        //                print("User access denied")
+        //            let alert = UIAlertController(title: "Alert",message: "Permission to access Photos needs to be granted to select images",preferredStyle: .alert)
+        //            self.present(alert, animated: true, completion: nil)
+        //
+        //                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {
+        //                (alertAction: UIAlertAction!) in
+        //                                    alert.dismiss(animated: true, completion: nil)
+        //                    UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)! as URL)
+        //
+        //                 }))
+        //            }
+        //
+        //        case .restricted:
+        //             print("User access is restricted")
+        //
+        //        case .notDetermined:
+        //             print("User access is not determined")
+        //
+        //        }
+        //        }
+        
+        //        if permissionGranted{
+        //            getImages()
+        //        }
+        
+    }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        self.selectedImages.removeAll()
+        self.selectedImages = []
+
+    }
+    
+    
+        
     
     func initialize(){
         galleryView.dataSource = self
         galleryView.delegate = self
+        
+        cameraImageCollection.dataSource = self
+        cameraImageCollection.delegate = self
+        cameraImageCollection.layer.borderColor = UIColor(colorLiteralRed: 228/255, green: 228/255, blue: 228/255, alpha: 1).cgColor
+        cameraImageCollection.layer.borderWidth = 2
+
+        
         galleryView.allowsSelection = true
         galleryView.allowsMultipleSelection = true
+        self.cameraImageCollection.register(UINib(nibName: "CameraCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CameraCollectionViewCell")
+
         self.galleryView.register(UINib(nibName: cellName, bundle: nil), forCellWithReuseIdentifier: cellName)
         flowLayoutInitialization()
-        
-
-    }
-    
-    func getImages(){
-        let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         myActivityIndicator.center = view.center
         myActivityIndicator.hidesWhenStopped = true
         view.addSubview(myActivityIndicator)
-
-        let imageManagerObject = PHImageManager.default()
-        let requestOptions = PHImageRequestOptions()
-        requestOptions.isSynchronous = true
-        let fetchResults = PHAsset.fetchAssets(with: .image, options: nil)
-        if(fetchResults.count>0){
-            for i in 0...(fetchResults.count-1){
-                imageManagerObject.requestImage(for: fetchResults.object(at: i), targetSize:CGSize(width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height*0.3) , contentMode: .aspectFit , options: requestOptions, resultHandler: {image, error in self.userImages.append(image!)
-                })
-                
-                
-            }
+//        self.navigationController?.navigationBar.barTintColor = UIColor(colorLiteralRed: 80/255, green: 201/255, blue: 195/255, alpha: 0.9)
         
-        }
-        myActivityIndicator.stopAnimating()
-        return
+        
     }
     
-   }
+
+    
+    func setNavigationBar(){
+        let navGradientLayer = CAGradientLayer()
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        navGradientLayer.frame = CGRect(x: 0, y: -20, width: UIApplication.shared.statusBarFrame.width, height: UIApplication.shared.statusBarFrame.height + (navigationController?.navigationBar.frame.height)!)
+        
+        navGradientLayer.colors = [UIColor(colorLiteralRed: 80/255, green: 201/255, blue: 195/255, alpha: 100 ).cgColor, UIColor(colorLiteralRed: 150/255, green: 222/255, blue: 218/255, alpha: 100).cgColor]
+        self.navigationController?.navigationBar.setBackgroundImage(image(fromLayer: navGradientLayer), for: UIBarMetrics.default)
+    }
+    
+    func image(fromLayer layer: CALayer) -> UIImage {
+        UIGraphicsBeginImageContext(layer.frame.size)
+        
+        layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let outputImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        UIGraphicsEndImageContext()
+        
+        return outputImage!
+    }
+
+    
+    func pushController(){
+        DispatchQueue.main.async{
+            self.myActivityIndicator.stopAnimating()
+        }
+        totalSelectedImages = selectedImages + cameraImages
+        let newController = self.storyboard?.instantiateViewController(withIdentifier: "photoReorderVC") as! PhotoReorderViewController
+        newController.userImages = totalSelectedImages
+        if(self.cameraUsed){
+            newController.cameraUsed = true
+        }
+        navigationController?.pushViewController(newController, animated: true)
+        
+    }
+    
+    
+    
+    func getImages(){
+        
+        self.myActivityIndicator.startAnimating()
+        
+//        myActivityIndicator.startAnimating()
+        
+//        let imageManagerObject = PHImageManager.default()
+//        let requestOptions = PHImageRequestOptions()
+        fetchResults = PHAsset.fetchAssets(with: .image, options: nil)
+        
+        DispatchQueue.main.async {
+            self.galleryView.reloadData()
+            self.myActivityIndicator.stopAnimating()
+        }
+        
+//        if(fetchResults.count>0) {
+//            for i in 0...(fetchResults.count-1) {
+//                imageManagerObject.requestImage(for: fetchResults.object(at: i), targetSize:CGSize(width: UIScreen.main.bounds.width/2, height: UIScreen.main.bounds.height/2) , contentMode: .aspectFit , options: requestOptions, resultHandler: {image, error in
+//                    
+//                    self.userImages.append(image!)
+//                })
+//                
+//                
+//            }
+//            
+//        }
+    }
+    func buttonClicked(sender:UIButton){
+        let index = sender.tag
+        cameraImages.remove(at: index)
+        cameraImageCollection.reloadData()
+        if cameraImages.count==0 {
+            self.cameraView.isHidden = true
+            
+        }
+    }
+
+
+}
+
 
 
 extension PhotoSelectionViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return userImages.count
+        if collectionView == galleryView{
+            return fetchResults.count
+        }
+        else {
+            return cameraImages.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellName, for: indexPath) as! GalleryCollectionViewCell
-        cell.imageView.image = userImages[indexPath.item]
-        //cell.imageView.contentMode = .scaleAspectFit
-        if cell.isSelected{
-            
-            
-            cell.selectionImage.isHidden = false
-        }
-        else{
-            cell.selectionImage.isHidden = true
-        }
-        
-        
+        if collectionView == galleryView{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellName, for: indexPath) as! GalleryCollectionViewCell
+            imageManagerObject?.requestImage(for: fetchResults.object(at: indexPath.row), targetSize:CGSize(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height/3) , contentMode: .aspectFit , options: requestOptions, resultHandler: {image, error in
+                
+                    cell.imageView.image = image
+                    cell.imageView.contentMode = .scaleAspectFill
+                
+            })
 
-        return cell
+            
+            
+    //        cell.imageView.image = userImages[indexPath.item]
+            cell.imageView.contentMode = .scaleAspectFill
+            if cell.isSelected{
+                
+                
+                cell.selectionImage.isHidden = false
+            }
+            else{
+                cell.selectionImage.isHidden = true
+            }
+            
+            
+            
+            return cell
         
+        }
+    
+        else{
+    
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CameraCollectionViewCell", for: indexPath) as! CameraCollectionViewCell
+            cell.cellImage.image = cameraImages[indexPath.item]
+            cell.deleteButton.tag = indexPath.item
+            cell.deleteButton.addTarget(self, action: #selector(buttonClicked), for: UIControlEvents.touchUpInside)
+            return cell
+
+        }
     }
     
 }
@@ -165,32 +356,73 @@ extension PhotoSelectionViewController : UICollectionViewDataSource{
 extension PhotoSelectionViewController : UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)as! GalleryCollectionViewCell
-        cell.selectionImage.isHidden = false
-        //cell.isSelected = true
-        //collectionView.reloadData()
+        if collectionView == galleryView{
+            
+            let cell = collectionView.cellForItem(at: indexPath)as! GalleryCollectionViewCell
+            cell.selectionImage.isHidden = false
+        }
+            
+        else{
+            cameraImages.remove(at: indexPath.item)
+            cameraImageCollection.reloadData()
+            if cameraImages.count==0 {
+                self.cameraView.isHidden = true
+            }
+
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if collectionView == galleryView{
+            
+            let cell = collectionView.cellForItem(at: indexPath)as! GalleryCollectionViewCell
+            cell.selectionImage.isHidden = true
+        }
         
-        let cell = collectionView.cellForItem(at: indexPath)as! GalleryCollectionViewCell
-        cell.selectionImage.isHidden = true
-        //cell.isSelected = false
-        //collectionView.reloadData()
     }
     
     func flowLayoutInitialization(){
         let layout = self.galleryView.collectionViewLayout as? UICollectionViewFlowLayout
-
+        
         layout?.minimumInteritemSpacing = 1
         layout?.minimumLineSpacing = 1
-
+        
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-
-        return CGSize(width: (UIScreen.main.bounds.width-2)/3 , height: (UIScreen.main.bounds.width-2)/3)
+        if collectionView == galleryView{
+            return CGSize(width: (UIScreen.main.bounds.width-6)/3 , height: (UIScreen.main.bounds.width-6)/3)
+        }
+        else{
+            return CGSize(width: 60, height: 60)
+        }
     }
-
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if collectionView == cameraImageCollection{
+            
+            return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        }
+        else {
+            if cameraUsed && cameraImages.count>0{
+                galleryView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 90, right: 0)
+                return UIEdgeInsets(top: 1, left: 2, bottom: 90, right: 2)
+            }
+            else{
+                galleryView.scrollIndicatorInsets = UIEdgeInsets.zero
+                return UIEdgeInsets(top: 1, left: 2, bottom: 0, right: 2)
+                
+            }
+        }
+    }
+    
 }
+
+
+
+
+
+
+
 

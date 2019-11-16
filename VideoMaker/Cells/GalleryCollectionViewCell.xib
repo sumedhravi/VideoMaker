@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,10 +20,12 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lxH-W1-fbb">
                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aAh-UV-Fgs">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SelectionImage" translatesAutoresizingMaskIntoConstraints="NO" id="aAh-UV-Fgs">
                         <rect key="frame" x="270" y="270" width="30" height="30"/>
                         <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Nq5-71-Xfr"/>
                             <constraint firstAttribute="height" constant="30" id="O80-gW-SCF"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="OVP-Vd-nxt"/>
                             <constraint firstAttribute="width" constant="30" id="THp-Lx-ObN"/>
                         </constraints>
                     </imageView>
@@ -33,10 +34,16 @@
             <constraints>
                 <constraint firstItem="lxH-W1-fbb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8eM-Ku-GSi"/>
                 <constraint firstAttribute="bottom" secondItem="lxH-W1-fbb" secondAttribute="bottom" id="Abf-zI-Wkp"/>
+                <constraint firstItem="lxH-W1-fbb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="BWu-pD-PMM"/>
                 <constraint firstAttribute="trailing" secondItem="aAh-UV-Fgs" secondAttribute="trailing" id="L3t-Zt-9r1"/>
+                <constraint firstAttribute="trailing" secondItem="aAh-UV-Fgs" secondAttribute="trailing" id="LS5-FZ-4mt"/>
+                <constraint firstItem="lxH-W1-fbb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Ros-17-g0Q"/>
                 <constraint firstAttribute="bottom" secondItem="aAh-UV-Fgs" secondAttribute="bottom" id="WHD-fo-nrB"/>
                 <constraint firstAttribute="trailing" secondItem="lxH-W1-fbb" secondAttribute="trailing" id="YjM-3M-oTq"/>
+                <constraint firstAttribute="bottom" secondItem="aAh-UV-Fgs" secondAttribute="bottom" id="Zjy-i9-r1i"/>
+                <constraint firstAttribute="trailing" secondItem="lxH-W1-fbb" secondAttribute="trailing" id="aQT-4L-tdn"/>
                 <constraint firstItem="lxH-W1-fbb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="gQ1-j3-Zir"/>
+                <constraint firstAttribute="bottom" secondItem="lxH-W1-fbb" secondAttribute="bottom" id="vXC-kc-GCe"/>
             </constraints>
             <connections>
                 <outlet property="imageView" destination="lxH-W1-fbb" id="ZxP-Vi-wdf"/>
@@ -44,4 +51,7 @@
             </connections>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="SelectionImage" width="512" height="512"/>
+    </resources>
 </document>

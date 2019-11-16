@@ -12,77 +12,96 @@ import Photos
 
 class PhotoReorderViewController: UIViewController {
     var userImages: [UIImage] = []
-    var videoURL = NSURL(fileURLWithPath: "")
+    var videoURL = URL(fileURLWithPath: "")
     var audioList = ["Track 0", "Track 1", "Track 2", "Track 3", "Track 4", "Track 5", "Track 6"]
     var audioPlayer = AVAudioPlayer()
-    var selectedAudio = NSURL(fileURLWithPath: "")
+    var selectedAudio = URL(fileURLWithPath: "")
     var myActivityIndicator: UIActivityIndicatorView!
-    var isViewHidden = true
-    var watermark :Bool?
+//    var isViewHidden = true
+    var cameraUsed = false
+    //var watermark :Bool?
     
     @IBOutlet weak var audioCollectionView: UICollectionView!
     @IBOutlet weak var selectedImagesCollectionView: UICollectionView!
     
     
-    @IBOutlet weak var buttonConstraint: NSLayoutConstraint!
+        @IBOutlet weak var buttonConstraint: NSLayoutConstraint!
     
-    @IBAction func selectAudioButton(_ sender: UIButton) {
-        if isViewHidden{
-        UIView.animate(withDuration: 0.6, animations: {
-            self.buttonConstraint.constant = 0
-            sender.setTitle(">" , for: UIControlState.normal)
-            self.view.layoutIfNeeded()
-            self.isViewHidden = false
+//    @IBAction func selectAudioButton(_ sender: UIButton) {
+//        if isViewHidden{
+//        UIView.animate(withDuration: 0.6, animations: {
+//            self.buttonConstraint.constant = 0
+//            sender.setTitle(">" , for: UIControlState.normal)
+//            self.view.layoutIfNeeded()
+//            self.isViewHidden = false
+//
+//        })
+//        }
+//        else {
+//            UIView.animate(withDuration: 0.6, animations: {
+//                self.buttonConstraint.constant = UIScreen.main.bounds.width - 48
+//                sender.setTitle("Audio" , for: UIControlState.normal)
+//                self.view.layoutIfNeeded()
+//                self.isViewHidden=true
+//
+//            })
+//        }
+    
 
-        })
-        }
-        else {
-            UIView.animate(withDuration: 0.6, animations: {
-                self.buttonConstraint.constant = UIScreen.main.bounds.width - 48
-                sender.setTitle("Audio" , for: UIControlState.normal)
-                self.view.layoutIfNeeded()
-                self.isViewHidden=true
-
-            })
-        }
-    }
+    
+//    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        buttonConstraint.constant = UIScreen.main.bounds.width - 48
+        //buttonConstraint.constant = UIScreen.main.bounds.width - 48
         
         configureActivityIndicator()
         configureNavigationItem()
         configureCollectionView()
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        if !(audioCollectionView.indexPathsForSelectedItems?.isEmpty)!{
-            audioPlayer.stop()
-        }
-    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+//        let galleryVC = self.navigationController?.viewControllers[1] as! PhotoSelectionViewController
+//        //        galleryVC.hasReturnedFromReordering = true
+//        galleryVC.selectedImages.removeAll()
+//        galleryVC.selectedImages = []
+        
+
+    }
     private func configureActivityIndicator() {
         
-        myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.whiteLarge)
+        myActivityIndicator.frame = CGRect(x: UIScreen.main.bounds.width/2, y: UIScreen.main.bounds.height/2, width: 50, height: 50)
+
+        myActivityIndicator.layer.cornerRadius = 5
         myActivityIndicator.center = view.center
         myActivityIndicator.hidesWhenStopped = true
+        myActivityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.5)
         view.addSubview(myActivityIndicator)
     }
     
     func configureNavigationItem(){
-        navigationItem.title = "Selected Images"
-        let newBackButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector (proceed))
+        navigationItem.title = "Create Video"
+        let newButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector (proceed))
         
-        self.navigationItem.rightBarButtonItem = newBackButton
+        
+        self.navigationItem.rightBarButtonItem = newButton
+
         
     }
     
     func configureCollectionView(){
+        audioCollectionView.layer.borderColor = UIColor(colorLiteralRed: 228/255, green: 228/255, blue: 228/255, alpha: 1).cgColor
+        audioCollectionView.layer.borderWidth = 2
         selectedImagesCollectionView.dataSource = self
         selectedImagesCollectionView.delegate = self
         audioCollectionView.dataSource = self
@@ -95,7 +114,10 @@ class PhotoReorderViewController: UIViewController {
         flowLayoutInitialization()
     }
     
+    
+    
     func proceed() {
+
         if (audioCollectionView.indexPathsForSelectedItems?.isEmpty)!{
             let alert = UIAlertController(title: "Alert!",message: "Please Select Audio Track",preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
@@ -104,15 +126,27 @@ class PhotoReorderViewController: UIViewController {
             return
         }
         else{
-            audioPlayer.stop()
-            myActivityIndicator.startAnimating()
             let settings = VideoComposer.RenderSettings()
             let imageAnimator = VideoComposer.ImageAnimator(renderSettings:settings, imageArray: userImages)
             videoURL = settings.outputURL
+
+            let asset = AVAsset(url: selectedAudio)
+            let assetDuration = CMTimeGetSeconds(asset.duration)
+            let imagesAllowed = Int(assetDuration*(settings.fps)) //fps
+            if(imagesAllowed<userImages.count){
+                let alert = UIAlertController(title: "Alert!",message: "You can only select \(imagesAllowed) images for this audio. You have selected \(userImages.count)",preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: {(alertAction: UIAlertAction!) in
+                    alert.dismiss(animated: true, completion: nil)}))
+                present(alert, animated: true, completion: nil)
+                return
+
+            }
+            audioPlayer.stop()
+            view.layoutIfNeeded()
+
+            UIApplication.shared.beginIgnoringInteractionEvents()
+            myActivityIndicator.startAnimating()
             imageAnimator.render(completion: createMerger)
-//          let newController = self.storyboard?.instantiateViewController(withIdentifier: "playerVC") as! CompositeVideoViewController
-//          newController.finalVideoURL = videoURL as URL
-//          navigationController?.pushViewController(newController, animated: true)
         }
     }
 
@@ -124,43 +158,24 @@ class PhotoReorderViewController: UIViewController {
             
             if mergedVideoUrl != nil {
                 
-//                        PHPhotoLibrary.requestAuthorization { status in
-//                            guard status == .authorized else { return }
-//                
-//                            PHPhotoLibrary.shared().performChanges({
-//                                PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: mergedVideoUrl as! URL)
-//                            }) { success, error in
                 
-                                DispatchQueue.main.async {
-                                    self.myActivityIndicator.stopAnimating()
-                                    let newController = self.storyboard?.instantiateViewController(withIdentifier: "playerVC") as! CompositeVideoViewController
-                                    newController.finalVideoURL = mergedVideoUrl as! URL
-                                    self.navigationController?.pushViewController(newController, animated: true)
-
-                                }
+                DispatchQueue.main.async {
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                    self.myActivityIndicator.stopAnimating()
                     
-//                                if !success {
-//                                    print("Could not save video to photo library:", error!)
-//                                }
-//                            }
-//                        }
+                    let newController = self.storyboard?.instantiateViewController(withIdentifier: "playerVC") as! CompositeVideoViewController
+                    newController.finalVideoURL = mergedVideoUrl!
+                    if(self.cameraUsed){
+                        newController.cameraUsed = true
+                    }
+                    self.navigationController?.pushViewController(newController, animated: true)
+
+                    }
             }
         })
-//        completion()
-
     }
-
-    
-   
-//        let newController = self.storyboard?.instantiateViewController(withIdentifier: "") as!
-//        newController.userImages = self.sample
-//        navigationController?.pushViewController(newController, animated: true)
     
     
-    
-    
-       
-       
     func handleLongGesture(gesture: UILongPressGestureRecognizer){
         switch(gesture.state) {
     
@@ -176,9 +191,6 @@ class PhotoReorderViewController: UIViewController {
         default:
             selectedImagesCollectionView.cancelInteractiveMovement()
         }
-        selectedImagesCollectionView.reloadData()
-
-    
     }
 }
 
@@ -206,7 +218,7 @@ extension PhotoReorderViewController:UICollectionViewDataSource{
            cell.audioName.text = audioList[indexPath.item]
             if !cell.isSelected{
                 cell.isPlaying = false
-                cell.cellView.backgroundColor = UIColor(colorLiteralRed: 230, green: 238, blue: 238, alpha: 1)
+                cell.cellView.backgroundColor = UIColor(colorLiteralRed: 230/255, green: 238/255, blue: 238/255, alpha: 1)
                 cell.cellView.alpha = 0.2
                 cell.durationLabel.isHidden = true
             }
@@ -256,10 +268,12 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
             
             let trackID = indexPath.row
             let path: String! = Bundle.main.resourcePath?.appending("/\(trackID).mp3")
-            let mp3URL = NSURL(fileURLWithPath: path)
+            
+            let mp3URL = URL(fileURLWithPath: path)
+        
             selectedAudio = mp3URL
             let cell = audioCollectionView.cellForItem(at: indexPath) as! AudioCollectionViewCell
-            //cell.audioImage.layer.cornerRadius = cell.audioImage.getDrawable
+            
             cell.cellView.backgroundColor = UIColor.black
             cell.cellView.alpha = 0.2
             
@@ -268,9 +282,6 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
                 cell.isPlaying = false
             }
             else{
-//                if let selectedItems = audioCollectionView.indexPathsForSelectedItems{
-//                    
-//                }
                 do
                 {
                     //            if() {
@@ -300,41 +311,48 @@ extension PhotoReorderViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         //audioPlayer.pause()
+        if collectionView == audioCollectionView{
         if let cell = audioCollectionView.cellForItem(at: indexPath) as! AudioCollectionViewCell?
         {
             cell.isPlaying=false
             cell.durationLabel.isHidden = true
-            cell.cellView.backgroundColor = UIColor(colorLiteralRed: 230, green: 238, blue: 238, alpha: 1)
+            cell.cellView.backgroundColor = UIColor(colorLiteralRed: 230/255, green: 238/255, blue: 238/255, alpha: 1)
             cell.cellView.alpha = 0.2
-
+        }
 
         }
     }
     
     func flowLayoutInitialization(){
-        let layout = self.selectedImagesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        let layout1 = self.selectedImagesCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         
-        layout?.minimumInteritemSpacing = 1
-        layout?.minimumLineSpacing = 1
+        layout1?.minimumInteritemSpacing = 1
+        layout1?.minimumLineSpacing = 1
+        let layout2 = self.audioCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        layout2?.minimumInteritemSpacing = 0
         
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if collectionView == audioCollectionView{
-        return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-        }
         return UIEdgeInsets.zero
+        }
+        else{
+            
+            return UIEdgeInsets(top: 1, left: 2, bottom: 130, right: 2)
+    
+        }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         
         if collectionView == selectedImagesCollectionView{
             
-        return CGSize(width: (UIScreen.main.bounds.width-2)/3 , height: (UIScreen.main.bounds.width-2)/3)
+        return CGSize(width: (UIScreen.main.bounds.width-6)/3 , height: (UIScreen.main.bounds.width-6)/3)
     
         }
         else{
-            return CGSize(width: 120, height: 120)
+            return CGSize(width: 100, height: 90)
         }
     }
 }

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C0C15201F754B8700E2FC06 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0C151F1F754B8700E2FC06 /* AlbumViewController.swift */; };
+		9C0C15251F78E09600E2FC06 /* AlbumCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0C15231F78E09600E2FC06 /* AlbumCollectionViewCell.swift */; };
+		9C0C15261F78E09600E2FC06 /* AlbumCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C0C15241F78E09600E2FC06 /* AlbumCollectionViewCell.xib */; };
+		9C0C9D8F1F74004B0019C428 /* CustomAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0C9D8E1F74004B0019C428 /* CustomAlbum.swift */; };
+		9C0C9D911F740ED60019C428 /* IBButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C0C9D901F740ED60019C428 /* IBButton.swift */; };
 		9C285F881F6A497B00DACC75 /* 0.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C285F811F6A497B00DACC75 /* 0.mp3 */; };
 		9C285F891F6A497B00DACC75 /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C285F821F6A497B00DACC75 /* 1.mp3 */; };
 		9C285F8A1F6A497B00DACC75 /* 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9C285F831F6A497B00DACC75 /* 2.mp3 */; };
@@ -17,6 +22,10 @@
 		9C285F951F6A63C300DACC75 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C285F941F6A63C300DACC75 /* AVKit.framework */; };
 		9C285F971F6A63CB00DACC75 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C285F961F6A63CB00DACC75 /* AVFoundation.framework */; };
 		9C3C531F1F6A3BF60039C3F7 /* IBView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3C531E1F6A3BF60039C3F7 /* IBView.swift */; };
+		9C3D08C81F7252BD0041CD64 /* ModeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D08C71F7252BD0041CD64 /* ModeSelectionViewController.swift */; };
+		9C3D08CA1F7296DB0041CD64 /* CustomCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D08C91F7296DB0041CD64 /* CustomCameraViewController.swift */; };
+		9C3D08CD1F72B45D0041CD64 /* CameraCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3D08CB1F72B45D0041CD64 /* CameraCollectionViewCell.swift */; };
+		9C3D08CE1F72B45D0041CD64 /* CameraCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C3D08CC1F72B45D0041CD64 /* CameraCollectionViewCell.xib */; };
 		9CA37BDE1F6A6B1E00C522DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA37BDD1F6A6B1E00C522DF /* AppDelegate.swift */; };
 		9CA37BE31F6A6B8B00C522DF /* VideoComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA37BE21F6A6B8B00C522DF /* VideoComposer.swift */; };
 		9CA37BE51F6A7F8D00C522DF /* AVMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA37BE41F6A7F8D00C522DF /* AVMerger.swift */; };
@@ -34,6 +43,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9C0C151F1F754B8700E2FC06 /* AlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
+		9C0C15231F78E09600E2FC06 /* AlbumCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCollectionViewCell.swift; sourceTree = "<group>"; };
+		9C0C15241F78E09600E2FC06 /* AlbumCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumCollectionViewCell.xib; sourceTree = "<group>"; };
+		9C0C9D8E1F74004B0019C428 /* CustomAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAlbum.swift; sourceTree = "<group>"; };
+		9C0C9D901F740ED60019C428 /* IBButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBButton.swift; sourceTree = "<group>"; };
 		9C285F811F6A497B00DACC75 /* 0.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 0.mp3; sourceTree = "<group>"; };
 		9C285F821F6A497B00DACC75 /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
 		9C285F831F6A497B00DACC75 /* 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2.mp3; sourceTree = "<group>"; };
@@ -44,6 +58,10 @@
 		9C285F941F6A63C300DACC75 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		9C285F961F6A63CB00DACC75 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9C3C531E1F6A3BF60039C3F7 /* IBView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBView.swift; sourceTree = "<group>"; };
+		9C3D08C71F7252BD0041CD64 /* ModeSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModeSelectionViewController.swift; sourceTree = "<group>"; };
+		9C3D08C91F7296DB0041CD64 /* CustomCameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCameraViewController.swift; sourceTree = "<group>"; };
+		9C3D08CB1F72B45D0041CD64 /* CameraCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCollectionViewCell.swift; sourceTree = "<group>"; };
+		9C3D08CC1F72B45D0041CD64 /* CameraCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CameraCollectionViewCell.xib; sourceTree = "<group>"; };
 		9CA37BDD1F6A6B1E00C522DF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9CA37BE21F6A6B8B00C522DF /* VideoComposer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoComposer.swift; sourceTree = "<group>"; };
 		9CA37BE41F6A7F8D00C522DF /* AVMerger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVMerger.swift; sourceTree = "<group>"; };
@@ -94,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				9CA37BE61F6AA95700C522DF /* CompositeVideoViewController.swift */,
+				9C0C151F1F754B8700E2FC06 /* AlbumViewController.swift */,
 			);
 			path = VideoVC;
 			sourceTree = "<group>";
@@ -102,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				9C3C531E1F6A3BF60039C3F7 /* IBView.swift */,
+				9C0C9D901F740ED60019C428 /* IBButton.swift */,
 			);
 			path = IBDesignables;
 			sourceTree = "<group>";
@@ -111,6 +131,7 @@
 			children = (
 				9CA37BE21F6A6B8B00C522DF /* VideoComposer.swift */,
 				9CA37BE41F6A7F8D00C522DF /* AVMerger.swift */,
+				9C0C9D8E1F74004B0019C428 /* CustomAlbum.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -162,6 +183,7 @@
 			children = (
 				9C285F8F1F6A5AF800DACC75 /* VideoVC */,
 				9CA8D7231F68F0E3004ADB26 /* PhotosVC */,
+				9C3D08C71F7252BD0041CD64 /* ModeSelectionViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -171,6 +193,7 @@
 			children = (
 				9CA8D7241F68F0E3004ADB26 /* PhotoSelectionViewController.swift */,
 				9CA8D7261F68F280004ADB26 /* PhotoReorderViewController.swift */,
+				9C3D08C91F7296DB0041CD64 /* CustomCameraViewController.swift */,
 			);
 			path = PhotosVC;
 			sourceTree = "<group>";
@@ -182,6 +205,10 @@
 				9CD0EA011F697D1C0035309C /* AudioCollectionViewCell.swift */,
 				9CD0EA021F697D1C0035309C /* AudioCollectionViewCell.xib */,
 				9CA8D72A1F68FB3D004ADB26 /* GalleryCollectionViewCell.xib */,
+				9C3D08CB1F72B45D0041CD64 /* CameraCollectionViewCell.swift */,
+				9C3D08CC1F72B45D0041CD64 /* CameraCollectionViewCell.xib */,
+				9C0C15231F78E09600E2FC06 /* AlbumCollectionViewCell.swift */,
+				9C0C15241F78E09600E2FC06 /* AlbumCollectionViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -260,6 +287,7 @@
 				9CA8D7171F68ED3B004ADB26 /* LaunchScreen.storyboard in Resources */,
 				9CD0EA041F697D1C0035309C /* AudioCollectionViewCell.xib in Resources */,
 				9C285F891F6A497B00DACC75 /* 1.mp3 in Resources */,
+				9C0C15261F78E09600E2FC06 /* AlbumCollectionViewCell.xib in Resources */,
 				9C285F8C1F6A497B00DACC75 /* 4.mp3 in Resources */,
 				9C285F8B1F6A497B00DACC75 /* 3.mp3 in Resources */,
 				9CA8D7141F68ED3B004ADB26 /* Assets.xcassets in Resources */,
@@ -267,6 +295,7 @@
 				9C285F8A1F6A497B00DACC75 /* 2.mp3 in Resources */,
 				9C285F8E1F6A497B00DACC75 /* 6.mp3 in Resources */,
 				9CA8D7121F68ED3B004ADB26 /* Main.storyboard in Resources */,
+				9C3D08CE1F72B45D0041CD64 /* CameraCollectionViewCell.xib in Resources */,
 				9CA8D72C1F68FB3D004ADB26 /* GalleryCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,13 +307,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C0C15251F78E09600E2FC06 /* AlbumCollectionViewCell.swift in Sources */,
 				9CA37BDE1F6A6B1E00C522DF /* AppDelegate.swift in Sources */,
+				9C0C9D8F1F74004B0019C428 /* CustomAlbum.swift in Sources */,
 				9CA8D7251F68F0E3004ADB26 /* PhotoSelectionViewController.swift in Sources */,
 				9CA37BE51F6A7F8D00C522DF /* AVMerger.swift in Sources */,
+				9C0C9D911F740ED60019C428 /* IBButton.swift in Sources */,
 				9CA37BE71F6AA95700C522DF /* CompositeVideoViewController.swift in Sources */,
+				9C0C15201F754B8700E2FC06 /* AlbumViewController.swift in Sources */,
+				9C3D08CA1F7296DB0041CD64 /* CustomCameraViewController.swift in Sources */,
 				9CA37BE31F6A6B8B00C522DF /* VideoComposer.swift in Sources */,
 				9C3C531F1F6A3BF60039C3F7 /* IBView.swift in Sources */,
+				9C3D08C81F7252BD0041CD64 /* ModeSelectionViewController.swift in Sources */,
 				9CA8D72B1F68FB3D004ADB26 /* GalleryCollectionViewCell.swift in Sources */,
+				9C3D08CD1F72B45D0041CD64 /* CameraCollectionViewCell.swift in Sources */,
 				9CA8D7271F68F280004ADB26 /* PhotoReorderViewController.swift in Sources */,
 				9CD0EA031F697D1C0035309C /* AudioCollectionViewCell.swift in Sources */,
 			);

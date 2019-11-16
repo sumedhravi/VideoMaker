@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Video-Maker-Feature.png",
+      "filename" : "icCameraFlip.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Video-Maker-Feature-1.png",
+      "filename" : "icCameraFlip@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Video-Maker-Feature-2.png",
+      "filename" : "icCameraFlip@3x.png",
       "scale" : "3x"
     }
   ],

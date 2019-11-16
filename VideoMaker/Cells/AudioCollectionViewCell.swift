@@ -22,10 +22,13 @@ class AudioCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.audioImage.image = UIImage(named: "MusicSymbol")
-        self.audioImage.layer.cornerRadius = CGFloat(cellImageSize/2)
+        
+//        self.audioImage.layer.cornerRadius = CGFloat(cellImageSize/2)
         self.audioImage.clipsToBounds = true
         durationLabel.isHidden = true
+        self.layer.borderColor = UIColor(colorLiteralRed: 228/255, green: 228/255, blue: 228/255, alpha: 1).cgColor
+        self.layer.borderWidth = 1.5
+
 
         // Initialization code
     }
