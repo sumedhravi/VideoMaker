@@ -14,17 +14,13 @@ import Photos
 class CompositeVideoViewController: AVPlayerViewController {
     var finalVideoURL = URL(fileURLWithPath: "")
     var playCount = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let videoPlayer = AVPlayer(url: finalVideoURL)
-//        let playerViewController = AVPlayerViewController()
-//        playerViewController.player = videoPlayer
         self.player = AVPlayer(url: finalVideoURL)
         NotificationCenter.default.addObserver(self , selector: #selector(handleNotification), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-//        self.present(playerViewController, animated: true)
-//        do {
-            self.player!.play()
-//        }
+        self.player!.play()
+
         let newButton = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.done, target: self, action: #selector (saveToLibrary))
         self.navigationItem.rightBarButtonItem = newButton
         let newBackButton = UIBarButtonItem(title: "Home", style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
@@ -83,14 +79,5 @@ class CompositeVideoViewController: AVPlayerViewController {
         self.navigationController?.popToRootViewController(animated: true)
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
